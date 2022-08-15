@@ -19,11 +19,13 @@ test('profile information can be updated', function (): void {
     $this->actingAs($user = User::factory()->create());
 
     Livewire::test(UpdateProfileInformationForm::class)
-        ->set('state', ['name' => 'Test Name', 'email' => 'test@example.com'])
+        ->set('state', ['name' => 'Test Name', 'email' => 'test@example.com', 'id_number' => '2893748923', 'phone_number' => '0981234567'])
         ->call('updateProfileInformation')
     ;
 
     expect($user->fresh())
         ->name->toEqual('Test Name')
-        ->email->toEqual('test@example.com');
+        ->email->toEqual('test@example.com')
+        ->id_number->toEqual('2893748923')
+        ->phone_number->toEqual('0981234567');
 });

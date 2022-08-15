@@ -22,6 +22,8 @@ test('new users can register', function (): void {
     $response = $this->post('/register', [
         'name' => 'Test User',
         'email' => 'test@example.com',
+        'id_number' => '2893748923',
+        'phone_number' => '0981234567',
         'password' => 'password',
         'password_confirmation' => 'password',
         'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature(),
