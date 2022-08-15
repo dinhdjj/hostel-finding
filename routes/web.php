@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Http\Controllers\HostelController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,3 +25,11 @@ Route::middleware([
 ])->group(function (): void {
     Route::get('/dashboard', fn () => view('dashboard'))->name('dashboard');
 });
+
+Route::prefix('hostels')
+    ->name('hostels.')
+    ->controller(HostelController::class)
+    ->group(function (): void {
+        Route::get('search', 'search')->name('search');
+    })
+;
