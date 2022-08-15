@@ -10,14 +10,26 @@
             @csrf
 
             <div>
-                <x-jet-label for="name" value="{{ __('Name') }}" />
+                <x-jet-label for="name" value="Tên" />
                 <x-jet-input id="name" class="mt-1 block w-full" type="text" name="name" :value="old('name')"
                     required autofocus autocomplete="name" />
             </div>
 
             <div class="mt-4">
-                <x-jet-label for="email" value="{{ __('Email') }}" />
+                <x-jet-label for="email" value="Email" />
                 <x-jet-input id="email" class="mt-1 block w-full" type="email" name="email" :value="old('email')"
+                    required />
+            </div>
+
+            <div class="mt-4">
+                <x-jet-label for="phone_number" value="Số điện thoại" />
+                <x-jet-input id="phone_number" class="mt-1 block w-full" type="text" name="phone_number"
+                    :value="old('phone_number')" required />
+            </div>
+
+            <div class="mt-4">
+                <x-jet-label for="id_number" value="CMND/CCCD" />
+                <x-jet-input id="id_number" class="mt-1 block w-full" type="text" name="id_number" :value="old('id_number')"
                     required />
             </div>
 
