@@ -61,4 +61,9 @@ class Hostel extends Model
     {
         return $this->belongsToMany(Amenity::class);
     }
+
+    public function categories(): BelongsToMany
+    {
+        return $this->belongsToMany(Category::class);
+    }
 }
