@@ -6,6 +6,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
@@ -71,5 +72,15 @@ class User extends Authenticatable
     public function comments(): HasMany
     {
         return $this->hasMany(Comment::class, 'owner_id');
+    }
+
+    public function votes(): HasMany
+    {
+        return $this->hasMany(Vote::class, 'owner_id');
+    }
+
+    public function hostelVotes(): HasManyThrough
+    {
+        return $this->hasManyThrough(Vote::class, Hostel::class, 'owner_id');
     }
 }
