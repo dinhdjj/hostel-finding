@@ -24,7 +24,7 @@ class CommentFactory extends Factory
     {
         return [
             'content' => $this->faker->sentence(),
-            'parent_id' => Arr::random([null, Comment::factory()]),
+            'parent_id' => fn ($attrs) => Arr::random([null, Comment::factory(['hostel_id' => $attrs['hostel_id']])]),
             'owner_id' => User::factory(),
             'hostel_id' => Hostel::factory(),
         ];
