@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Enums\HostelStatus;
+use Dinhdjj\Visit\Traits\Visitable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -17,6 +18,7 @@ class Hostel extends Model
 {
     use HasFactory;
     use HasSlug;
+    use Visitable;
 
     protected $fillable = [
         'title',
