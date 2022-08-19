@@ -19,7 +19,7 @@ return new class() extends Migration
             $table->string('title');
             $table->string('slug')->unique();
             $table->text('description')->nullable();
-            $table->integer('status');
+            $table->timestamp('found_at');
             $table->string('address');
             $table->float('latitude', 10, 8);
             $table->float('longitude', 11, 8);

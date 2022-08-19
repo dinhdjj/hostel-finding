@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use App\Enums\HostelStatus;
 use Dinhdjj\Visit\Traits\Visitable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -26,7 +25,7 @@ class Hostel extends Model implements HasMedia
     protected $fillable = [
         'title',
         'description',
-        'status',
+        'found_at',
         'address',
         'latitude',
         'longitude',
@@ -39,7 +38,7 @@ class Hostel extends Model implements HasMedia
     ];
 
     protected $casts = [
-        'status' => HostelStatus::class,
+        'found_at' => 'datetime',
     ];
 
     protected $appends = [

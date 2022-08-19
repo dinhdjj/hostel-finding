@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace Database\Factories;
 
-use App\Enums\HostelStatus;
 use App\Models\User;
-use Arr;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -24,7 +22,7 @@ class HostelFactory extends Factory
         return [
             'title' => $this->faker->name(),
             'description' => $this->faker->text(),
-            'status' => Arr::random(HostelStatus::cases()),
+            'found_at' => $this->faker->dateTimeBetween('-1 month', '+1 month'),
             'address' => $this->faker->address(),
             'longitude' => $this->faker->longitude(104.9, 107.9), // around Ho Chi Minh City
             'latitude' => $this->faker->latitude(9.6, 11.5), // around Ho Chi Minh City

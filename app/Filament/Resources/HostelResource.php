@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources;
 
-use App\Enums\HostelStatus;
 use App\Filament\Resources\HostelResource\Pages;
 use App\Models\Hostel;
+use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\MarkdownEditor;
 use Filament\Forms\Components\MultiSelect;
 use Filament\Forms\Components\Select;
@@ -18,9 +18,8 @@ use Filament\Resources\Table;
 use Filament\Tables\Actions\DeleteBulkAction;
 use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Actions\ViewAction;
-use Filament\Tables\Columns\BadgeColumn;
+use Filament\Tables\Columns\BooleanColumn;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Model;
 
 class HostelResource extends Resource
@@ -39,8 +38,7 @@ class HostelResource extends Resource
                 TextInput::make('title')
                     ->required()
                     ->maxLength(255),
-                Select::make('status')
-                    ->options(static::getOptionForHostelStatus())
+                DateTimePicker::make('found_at')
                     ->required(),
                 TextInput::make('address')
                     ->required()
@@ -81,12 +79,8 @@ class HostelResource extends Resource
                     ->sortable(),
                 TextColumn::make('title')
                     ->searchable(),
-                BadgeColumn::make('status')
-                    ->enum(static::getOptionForHostelStatus())
-                    ->colors([
-                        'warning' => fn ($state): bool => HostelStatus::FINDING->value === $state,
-                        'success' => fn ($state): bool => HostelStatus::FOUND->value === $state,
-                    ]),
+                BooleanColumn::make('found')
+                    ->getStateUsing(fn (Model $record) => $record->found_at->lte(now())),
                 TextColumn::make('address')
                     ->searchable(),
                 TextColumn::make('size')
@@ -101,8 +95,6 @@ class HostelResource extends Resource
                     ->dateTime(),
             ])
             ->filters([
-                SelectFilter::make('status')
-                    ->options(static::getOptionForHostelStatus()),
             ])
             ->actions([
                 ViewAction::make(),
@@ -129,10 +121,5 @@ class HostelResource extends Resource
             'view' => Pages\ViewHostel::route('/{record}'),
             'edit' => Pages\EditHostel::route('/{record}/edit'),
         ];
-    }
-
-    public static function getOptionForHostelStatus(): array
-    {
-        return collect(HostelStatus::cases())->mapWithKeys(fn (HostelStatus $case) => [$case->value => $case->getHumanString()])->toArray();
     }
 }
