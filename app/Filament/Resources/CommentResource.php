@@ -54,7 +54,7 @@ class CommentResource extends Resource
                 TextColumn::make('owner')
                     ->getStateUsing(fn (Model $record) => $record->owner->name),
                 TextColumn::make('updated_at')
-                    ->dateTime(),
+                    ->getStateUsing(fn (Comment $record) => $record->updated_at->diffForHumans()),
             ])
             ->filters([
             ])

@@ -96,7 +96,7 @@ class HostelResource extends Resource
                     ->searchable()
                     ->sortable(),
                 TextColumn::make('updated_at')
-                    ->dateTime(),
+                    ->getStateUsing(fn (Hostel $record) => $record->updated_at->diffForHumans()),
             ])
             ->filters([
                 TernaryFilter::make('Founded')

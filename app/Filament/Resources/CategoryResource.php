@@ -39,10 +39,8 @@ class CategoryResource extends Resource
             ->columns([
                 TextColumn::make('name'),
                 TextColumn::make('description'),
-                TextColumn::make('created_at')
-                    ->dateTime(),
                 TextColumn::make('updated_at')
-                    ->dateTime(),
+                    ->getStateUsing(fn (Category $record) => $record->updated_at->diffForHumans()),
             ])
             ->filters([
             ])

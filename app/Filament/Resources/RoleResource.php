@@ -50,10 +50,8 @@ class RoleResource extends Resource
                     ->searchable()
                     ->sortable(),
                 TextColumn::make('guard_name'),
-                TextColumn::make('created_at')
-                    ->dateTime(),
                 TextColumn::make('updated_at')
-                    ->dateTime(),
+                    ->getStateUsing(fn (Role $record) => $record->updated_at->diffForHumans()),
             ])
             ->filters([
             ])

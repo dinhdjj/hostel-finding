@@ -46,10 +46,8 @@ class PermissionResource extends Resource
                     ->searchable()
                     ->sortable(),
                 TextColumn::make('guard_name'),
-                TextColumn::make('created_at')
-                    ->dateTime(),
                 TextColumn::make('updated_at')
-                    ->dateTime(),
+                    ->getStateUsing(fn (Permission $record) => $record->updated_at->diffForHumans()),
             ])
             ->filters([
             ])

@@ -53,7 +53,7 @@ class VoteResource extends Resource
                 TextColumn::make('score'),
                 TextColumn::make('description'),
                 TextColumn::make('updated_at')
-                    ->dateTime(),
+                    ->getStateUsing(fn (Vote $record) => $record->updated_at->diffForHumans()),
             ])
             ->filters([
             ])

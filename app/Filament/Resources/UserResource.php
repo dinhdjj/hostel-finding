@@ -89,7 +89,7 @@ class UserResource extends Resource
                 BooleanColumn::make('email_verified_at')
                     ->label('Email verified'),
                 TextColumn::make('updated_at')
-                    ->dateTime(),
+                    ->getStateUsing(fn (User $record) => $record->updated_at->diffForHumans()),
             ])
             ->filters([
                 Filter::make('Email Verified')
