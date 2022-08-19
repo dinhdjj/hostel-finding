@@ -50,6 +50,12 @@ return new class() extends Migration
 
             // Visits
             Permission::create(['name' => 'visits.view.any']),
+
+            // Amenities
+            Permission::create(['name' => 'amenities.view.any']),
+            Permission::create(['name' => 'amenities.create.any']),
+            Permission::create(['name' => 'amenities.update.any']),
+            Permission::create(['name' => 'amenities.delete.any']),
         ]);
     }
 };
