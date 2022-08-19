@@ -24,7 +24,7 @@ class UserPolicy
 
     public function create(User $user): Response|bool
     {
-        return $user->hasPermissionTo('users.create');
+        return $user->hasPermissionTo('users.create.any');
     }
 
     public function update(User $user, User $model): Response|bool

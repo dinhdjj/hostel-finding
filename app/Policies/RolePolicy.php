@@ -25,7 +25,7 @@ class RolePolicy
 
     public function create(User $user): Response|bool
     {
-        return $user->hasPermissionTo('roles.create');
+        return $user->hasPermissionTo('roles.create.any');
     }
 
     public function update(User $user, Role $role): Response|bool
