@@ -23,6 +23,15 @@ return new class() extends Migration
             Permission::create(['name' => 'users.create']),
             Permission::create(['name' => 'users.update.any']),
             Permission::create(['name' => 'users.delete.any']),
+
+            // Roles
+            Permission::create(['name' => 'roles.view.any']),
+            Permission::create(['name' => 'roles.create']),
+            Permission::create(['name' => 'roles.update.any']),
+            Permission::create(['name' => 'roles.delete.any']),
+
+            // Permissions
+            Permission::create(['name' => 'permissions.view.any']),
         ]);
     }
 };
