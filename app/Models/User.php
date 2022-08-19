@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Models;
 
 use Dinhdjj\Visit\Traits\Visitor;
+use Filament\Models\Contracts\FilamentUser;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
@@ -15,7 +16,7 @@ use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 
-class User extends Authenticatable
+class User extends Authenticatable implements FilamentUser
 {
     use HasApiTokens;
     use HasFactory;
@@ -86,5 +87,10 @@ class User extends Authenticatable
     public function hostelVotes(): HasManyThrough
     {
         return $this->hasManyThrough(Vote::class, Hostel::class, 'owner_id');
+    }
+
+    public function canAccessFilament(): bool
+    {
+        return $this->hasPermissionTo('view.admin-page');
     }
 }

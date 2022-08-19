@@ -10,6 +10,7 @@
     "require": {
         "php": "^8.0.2",
         "dinhdjj/visit": "^1.0",
+        "filament/filament": "^2.15",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^9.19",
         "laravel/jetstream": "^2.11",
@@ -54,6 +55,7 @@
         ],
         "post-update-cmd": [
             "@php artisan vendor:publish --tag=laravel-assets --ansi --force",
+            "@php artisan filament:upgrade",
             "@php artisan ide-helper:generate",
             "@php artisan ide-helper:meta"
         ],
