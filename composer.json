@@ -11,6 +11,7 @@
         "php": "^8.0.2",
         "dinhdjj/visit": "^1.0",
         "filament/filament": "^2.15",
+        "filament/spatie-laravel-media-library-plugin": "^2.15",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^9.19",
         "laravel/jetstream": "^2.11",

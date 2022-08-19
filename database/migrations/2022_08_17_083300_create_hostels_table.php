@@ -18,7 +18,7 @@ return new class() extends Migration
             $table->id();
             $table->string('title');
             $table->string('slug')->unique();
-            $table->string('description')->nullable();
+            $table->text('description')->nullable();
             $table->integer('status');
             $table->string('address');
             $table->float('latitude', 10, 8);

@@ -32,6 +32,11 @@ return new class() extends Migration
 
             // Permissions
             Permission::create(['name' => 'permissions.view.any']),
+
+            // Hostels
+            Permission::create(['name' => 'hostels.view.any']),
+            Permission::create(['name' => 'hostels.update.any']),
+            Permission::create(['name' => 'hostels.delete.any']),
         ]);
     }
 };
