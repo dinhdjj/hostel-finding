@@ -37,6 +37,11 @@ return new class() extends Migration
             Permission::create(['name' => 'hostels.view.any']),
             Permission::create(['name' => 'hostels.update.any']),
             Permission::create(['name' => 'hostels.delete.any']),
+
+            // Comments
+            Permission::create(['name' => 'comments.view.any']),
+            Permission::create(['name' => 'comments.update.any']),
+            Permission::create(['name' => 'comments.delete.any']),
         ]);
     }
 };
