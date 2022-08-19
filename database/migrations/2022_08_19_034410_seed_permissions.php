@@ -56,6 +56,12 @@ return new class() extends Migration
             Permission::create(['name' => 'amenities.create.any']),
             Permission::create(['name' => 'amenities.update.any']),
             Permission::create(['name' => 'amenities.delete.any']),
+
+            // Categories
+            Permission::create(['name' => 'categories.view.any']),
+            Permission::create(['name' => 'categories.create.any']),
+            Permission::create(['name' => 'categories.update.any']),
+            Permission::create(['name' => 'categories.delete.any']),
         ]);
     }
 };
