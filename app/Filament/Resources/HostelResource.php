@@ -20,6 +20,8 @@ use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Actions\ViewAction;
 use Filament\Tables\Columns\BooleanColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\TernaryFilter;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 class HostelResource extends Resource
@@ -95,6 +97,13 @@ class HostelResource extends Resource
                     ->dateTime(),
             ])
             ->filters([
+                TernaryFilter::make('Founded')
+                    ->nullable()
+                    ->column('found_at')
+                    ->queries(
+                        true: fn (Builder $query): Builder => $query->where('found_at', '<=', now()),
+                        false: fn (Builder $query): Builder => $query->where('found_at', '>', now()),
+                    ),
             ])
             ->actions([
                 ViewAction::make(),

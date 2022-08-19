@@ -43,7 +43,12 @@ class RoleResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('name'),
+                TextColumn::make('id')
+                    ->searchable()
+                    ->sortable(),
+                TextColumn::make('name')
+                    ->searchable()
+                    ->sortable(),
                 TextColumn::make('guard_name'),
                 TextColumn::make('created_at')
                     ->dateTime(),
@@ -59,6 +64,7 @@ class RoleResource extends Resource
             ->bulkActions([
                 DeleteBulkAction::make(),
             ])
+            ->defaultSort('id', 'desc')
         ;
     }
 

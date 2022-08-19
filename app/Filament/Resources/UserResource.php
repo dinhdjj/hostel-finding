@@ -14,7 +14,9 @@ use Filament\Resources\Table;
 use Filament\Tables;
 use Filament\Tables\Columns\BooleanColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\Filter;
 use Hash;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 class UserResource extends Resource
@@ -73,6 +75,9 @@ class UserResource extends Resource
     {
         return $table
             ->columns([
+                TextColumn::make('id')
+                    ->searchable()
+                    ->sortable(),
                 TextColumn::make('name')
                     ->searchable(),
                 TextColumn::make('email')
@@ -87,6 +92,8 @@ class UserResource extends Resource
                     ->dateTime(),
             ])
             ->filters([
+                Filter::make('Email Verified')
+                    ->query(fn (Builder $query): Builder => $query->where('email_verified_at', '<=', now())),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
@@ -94,6 +101,7 @@ class UserResource extends Resource
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
             ])
+            ->defaultSort('id', 'desc')
         ;
     }
 
