@@ -17,6 +17,12 @@ return new class() extends Migration
 
         $admin->givePermissionTo([
             Permission::create(['name' => 'view.admin-page']),
+
+            // Users
+            Permission::create(['name' => 'users.view.any']),
+            Permission::create(['name' => 'users.create']),
+            Permission::create(['name' => 'users.update.any']),
+            Permission::create(['name' => 'users.delete.any']),
         ]);
     }
 };
