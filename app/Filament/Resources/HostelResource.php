@@ -6,6 +6,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\HostelResource\Pages;
 use App\Filament\Resources\HostelResource\RelationManagers\CommentsRelationManager;
+use App\Filament\Resources\HostelResource\RelationManagers\VotesRelationManager;
 use App\Models\Hostel;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\MarkdownEditor;
@@ -121,6 +122,7 @@ class HostelResource extends Resource
     {
         return [
             CommentsRelationManager::class,
+            VotesRelationManager::class,
         ];
     }
 
