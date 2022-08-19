@@ -18,7 +18,7 @@ class VoteResource extends Resource
 {
     protected static ?string $model = Vote::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $navigationIcon = 'heroicon-o-star';
 
     protected static ?string $navigationGroup = 'Related Hostel';
 
