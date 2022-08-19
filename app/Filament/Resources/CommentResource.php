@@ -29,11 +29,14 @@ class CommentResource extends Resource
                 Select::make('owner_id')
                     ->relationship('owner', 'email')
                     ->searchable(['name', 'email', 'phone_number', 'id_number', 'id'])
-                    ->required(),
+                    ->required()
+                    ->disabled()
+                    ->visibleOn(['edit', 'view']),
                 Select::make('hostel_id')
                     ->relationship('hostel', 'title')
                     ->searchable(['title', 'description', 'id'])
-                    ->required(),
+                    ->required()
+                    ->disabled(),
                 MarkdownEditor::make('content')
                     ->required()
                     ->maxLength(255),

@@ -27,7 +27,8 @@ class VoteResource extends Resource
                 Select::make('owner_id')
                     ->relationship('owner', 'email')
                     ->disabled()
-                    ->required(),
+                    ->required()
+                    ->visibleOn(['edit', 'view']),
                 Select::make('hostel_id')
                     ->relationship('hostel', 'title')
                     ->disabled()

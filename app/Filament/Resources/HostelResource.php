@@ -38,7 +38,10 @@ class HostelResource extends Resource
             ->schema([
                 Select::make('owner_id')
                     ->relationship('owner', 'email')
-                    ->searchable(['name', 'email', 'phone_number', 'id_number']),
+                    ->searchable(['name', 'email', 'phone_number', 'id_number'])
+                    ->disabled()
+                    ->visibleOn(['edit', 'view'])
+                    ->required(),
                 TextInput::make('title')
                     ->required()
                     ->maxLength(255),

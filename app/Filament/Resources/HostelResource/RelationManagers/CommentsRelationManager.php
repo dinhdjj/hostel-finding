@@ -6,7 +6,6 @@ namespace App\Filament\Resources\HostelResource\RelationManagers;
 
 use App\Filament\Resources\CommentResource;
 use Filament\Forms\Components\MarkdownEditor;
-use Filament\Forms\Components\Select;
 use Filament\Resources\Form;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Resources\Table;
@@ -24,10 +23,6 @@ class CommentsRelationManager extends RelationManager
     {
         return $form
             ->schema([
-                Select::make('owner_id')
-                    ->relationship('owner', 'email')
-                    ->searchable(['name', 'email', 'phone_number', 'id_number', 'id'])
-                    ->required(),
                 MarkdownEditor::make('content')
                     ->required()
                     ->maxLength(255),
@@ -39,7 +34,12 @@ class CommentsRelationManager extends RelationManager
     {
         return CommentResource::table($table)
             ->headerActions([
-                CreateAction::make(),
+                CreateAction::make()
+                    ->mutateFormDataUsing(function (array $data) {
+                        $data['owner_id'] = auth()->id();
+
+                        return $data;
+                    }),
             ])
         ;
     }
