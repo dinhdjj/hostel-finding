@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\RoleResource\Pages;
+use App\Filament\Resources\RoleResource\RelationManagers\UsersRelationManager;
 use App\Models\Role;
 use Filament\Forms\Components\CheckboxList;
 use Filament\Forms\Components\TextInput;
@@ -64,6 +65,7 @@ class RoleResource extends Resource
     public static function getRelations(): array
     {
         return [
+            UsersRelationManager::class,
         ];
     }
 
