@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\HostelResource\RelationManagers;
 
+use App\Models\Vote;
 use Filament\Forms\Components\MarkdownEditor;
-use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Select;
 use Filament\Resources\Form;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Resources\Table;
@@ -22,10 +23,14 @@ class VotesRelationManager extends RelationManager
     {
         return $form
             ->schema([
-                TextInput::make('score')
-                    ->numeric()
-                    ->maxValue(1)
-                    ->minValue(0)
+                Select::make('score')
+                    ->options([
+                        '0.2' => '1 ✯',
+                        '0.4' => '2 ✯',
+                        '0.6' => '3 ✯',
+                        '0.8' => '4 ✯',
+                        '1' => '5 ✯',
+                    ])
                     ->required(),
                 MarkdownEditor::make('description')
                     ->maxLength(255),
@@ -38,7 +43,8 @@ class VotesRelationManager extends RelationManager
         return $table
             ->columns([
                 TextColumn::make('owner.name'),
-                TextColumn::make('score'),
+                TextColumn::make('score')
+                    ->getStateUsing(fn (Vote $record) => $record->score * 5 .' ✯'),
                 TextColumn::make('description'),
                 TextColumn::make('updated_at')
                     ->dateTime(),

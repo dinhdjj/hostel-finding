@@ -8,7 +8,6 @@ use App\Filament\Resources\VoteResource\Pages;
 use App\Models\Vote;
 use Filament\Forms\Components\MarkdownEditor;
 use Filament\Forms\Components\Select;
-use Filament\Forms\Components\TextInput;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
@@ -33,11 +32,13 @@ class VoteResource extends Resource
                     ->relationship('hostel', 'title')
                     ->disabled()
                     ->required(),
-                TextInput::make('score')
-                    ->numeric()
-                    ->maxValue(1)
-                    ->minValue(0)
-                    ->required(),
+                Select::make('score')->options([
+                    '1' => '1 ✯',
+                    '2' => '2 ✯',
+                    '3' => '3 ✯',
+                    '4' => '4 ✯',
+                    '5' => '5 ✯',
+                ])->required(),
                 MarkdownEditor::make('description')
                     ->maxLength(255),
             ])
@@ -50,7 +51,8 @@ class VoteResource extends Resource
             ->columns([
                 TextColumn::make('owner.name'),
                 TextColumn::make('hostel.title'),
-                TextColumn::make('score'),
+                TextColumn::make('score')
+                    ->getStateUsing(fn (Vote $record) => $record->score * 5 .' ✯'),
                 TextColumn::make('description'),
                 TextColumn::make('updated_at')
                     ->getStateUsing(fn (Vote $record) => $record->updated_at->diffForHumans()),

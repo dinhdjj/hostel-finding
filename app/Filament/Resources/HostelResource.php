@@ -87,6 +87,9 @@ class HostelResource extends Resource
                     ->getStateUsing(fn (Model $record) => $record->found_at->lte(now())),
                 TextColumn::make('address')
                     ->searchable(),
+                TextColumn::make('score')
+                    ->avg('votes', 'score')
+                    ->getStateUsing(fn (Hostel $record) => $record->votes_score * 5 .' ✯'),
                 TextColumn::make('size')
                     ->getStateUsing(fn (Model $record) => $record->size.' m²')
                     ->searchable()
