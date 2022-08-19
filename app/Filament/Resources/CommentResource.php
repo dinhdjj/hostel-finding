@@ -22,6 +22,8 @@ class CommentResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-chat-alt-2';
 
+    protected static ?string $navigationGroup = 'Related Hostel';
+
     public static function form(Form $form): Form
     {
         return $form

@@ -25,6 +25,8 @@ class UserResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-users';
 
+    protected static ?string $navigationGroup = 'System';
+
     public static function getGlobalSearchResultTitle(Model $record): string
     {
         return $record->name;

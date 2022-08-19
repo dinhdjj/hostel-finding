@@ -16,6 +16,8 @@ class VisitResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-collection';
 
+    protected static ?string $navigationGroup = 'System';
+
     public static function table(Table $table): Table
     {
         return $table
