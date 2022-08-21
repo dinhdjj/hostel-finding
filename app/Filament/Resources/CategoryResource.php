@@ -31,9 +31,11 @@ class CategoryResource extends Resource
             ->schema([
                 TextInput::make('name')
                     ->required()
-                    ->maxLength(255),
+                    ->maxLength(255)
+                    ->localizeLabel(),
                 MarkdownEditor::make('description')
-                    ->maxLength(255),
+                    ->maxLength(255)
+                    ->localizeLabel(),
             ])
         ;
     }
@@ -42,10 +44,13 @@ class CategoryResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('name'),
-                TextColumn::make('description'),
+                TextColumn::make('name')
+                    ->localizeLabel(),
+                TextColumn::make('description')
+                    ->localizeLabel(),
                 TextColumn::make('updated_at')
-                    ->getStateUsing(fn (Category $record) => $record->updated_at->diffForHumans()),
+                    ->getStateUsing(fn (Category $record) => $record->updated_at->diffForHumans())
+                    ->localizeLabel(),
             ])
             ->filters([
             ])

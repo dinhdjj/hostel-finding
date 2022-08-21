@@ -46,39 +46,51 @@ class HostelResource extends Resource
                     ->searchable(['name', 'email', 'phone_number', 'id_number'])
                     ->disabled()
                     ->visibleOn(['edit', 'view'])
-                    ->required(),
+                    ->required()
+                    ->localizeLabel(),
                 TextInput::make('title')
                     ->required()
-                    ->maxLength(255),
+                    ->maxLength(255)
+                    ->localizeLabel(),
                 DateTimePicker::make('found_at')
-                    ->required(),
+                    ->required()
+                    ->localizeLabel(),
                 TextInput::make('address')
                     ->required()
-                    ->maxLength(255),
+                    ->maxLength(255)
+                    ->localizeLabel(),
                 TextInput::make('latitude')
                     ->numeric()
-                    ->required(),
+                    ->required()
+                    ->localizeLabel(),
                 TextInput::make('longitude')
                     ->numeric()
-                    ->required(),
+                    ->required()
+                    ->localizeLabel(),
                 TextInput::make('size')
                     ->numeric()
-                    ->required(),
+                    ->required()
+                    ->localizeLabel(),
                 TextInput::make('monthly_price')
                     ->numeric()
-                    ->required(),
+                    ->required()
+                    ->localizeLabel(),
                 MultiSelect::make('amenities')
                     ->relationship('amenities', 'name')
-                    ->searchable(['name']),
+                    ->searchable(['name'])
+                    ->localizeLabel(),
                 MultiSelect::make('categories')
                     ->relationship('categories', 'name')
-                    ->searchable(['name']),
-                MarkdownEditor::make('description'),
+                    ->searchable(['name'])
+                    ->localizeLabel(),
+                MarkdownEditor::make('description')
+                    ->localizeLabel(),
                 SpatieMediaLibraryFileUpload::make('default')
                     ->label('Images')
                     ->multiple()
                     ->enableReordering()
-                    ->minFiles(5),
+                    ->minFiles(5)
+                    ->localizeLabel(),
             ])
         ;
     }
@@ -89,26 +101,34 @@ class HostelResource extends Resource
             ->columns([
                 TextColumn::make('id')
                     ->searchable()
-                    ->sortable(),
+                    ->sortable()
+                    ->localizeLabel(),
                 TextColumn::make('title')
-                    ->searchable(),
+                    ->searchable()
+                    ->localizeLabel(),
                 BooleanColumn::make('found')
-                    ->getStateUsing(fn (Model $record) => $record->found_at->lte(now())),
+                    ->getStateUsing(fn (Model $record) => $record->found_at->lte(now()))
+                    ->localizeLabel(),
                 TextColumn::make('address')
-                    ->searchable(),
-                TextColumn::make('score')
+                    ->searchable()
+                    ->localizeLabel(),
+                TextColumn::make('votes_score')
                     ->avg('votes', 'score')
-                    ->getStateUsing(fn (Hostel $record) => $record->votes_score * 5 .' ✯'),
+                    ->getStateUsing(fn (Hostel $record) => $record->votes_score * 5 .' ✯')
+                    ->localizeLabel(),
                 TextColumn::make('size')
                     ->getStateUsing(fn (Model $record) => $record->size.' m²')
                     ->searchable()
-                    ->sortable(),
+                    ->sortable()
+                    ->localizeLabel(),
                 TextColumn::make('monthly_price')
                     ->getStateUsing(fn (Model $record) => number_format($record->monthly_price, 0, '.', ',').' ₫')
                     ->searchable()
-                    ->sortable(),
+                    ->sortable()
+                    ->localizeLabel(),
                 TextColumn::make('updated_at')
-                    ->getStateUsing(fn (Hostel $record) => $record->updated_at->diffForHumans()),
+                    ->getStateUsing(fn (Hostel $record) => $record->updated_at->diffForHumans())
+                    ->localizeLabel(),
             ])
             ->filters([
                 TernaryFilter::make('Founded')

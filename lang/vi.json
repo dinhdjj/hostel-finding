@@ -13,8 +13,9 @@
     "hostels": "những nhà trọ",
     "comment": "bình luận",
     "comments": "những bình luận",
-    "category": "thể loại",
-    "categories": "những thể loại",
+    "category": "danh mục",
+    "categories": "những danh mục",
     "amenity": "tiện ích",
-    "amenities": "những tiện ích"
+    "amenities": "những tiện ích",
+    "found": "tìm thấy"
 }

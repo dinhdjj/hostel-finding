@@ -27,6 +27,12 @@ return [
         'platform' => 'nền tảng',
         'browser' => 'trình duyệt',
         'ip' => 'IP',
+        'visitable' => [
+            'title' => 'tên nhà trọ',
+        ],
+        'visitor' => [
+            'email' => 'email',
+        ],
     ],
     'user' => [
         'id' => 'ID',
@@ -49,6 +55,7 @@ return [
         'updated_at' => 'cập nhật lúc',
         'name' => 'tên',
         'guard_name' => 'tên cổng bảo vệ',
+        'permissions' => 'các quyền',
     ],
     'permission' => [
         'id' => 'ID',
@@ -70,12 +77,21 @@ return [
         'longitude' => 'kinh độ',
         'size' => 'kích cỡ',
         'monthly_price' => 'giá hàng tháng',
+        'categories' => 'các danh mục',
+        'amenities' => 'các tiện nghi',
+        'default' => 'các ảnh',
+        'votes_score' => 'đánh giá',
     ],
     'comment' => [
         'id' => 'ID',
         'created_at' => 'tạo lúc',
         'updated_at' => 'cập nhật lúc',
         'content' => 'nội dung',
+        'owner_id' => 'người sở hữu',
+        'owner' => [
+            'name' => 'tên người sở hữu',
+        ],
+        'hostel_id' => 'nhà trọ',
     ],
     'category' => [
         'id' => 'ID',

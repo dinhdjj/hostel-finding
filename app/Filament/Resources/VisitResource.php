@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\VisitResource\Pages;
-use App\Filament\Traits\Localizable;
 use App\Models\Visit;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
@@ -13,8 +12,6 @@ use Filament\Tables\Columns\TextColumn;
 
 class VisitResource extends Resource
 {
-    use Localizable;
-
     protected static ?string $model = Visit::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-eye';
@@ -26,15 +23,23 @@ class VisitResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('visitable.title')
-                    ->label('Hostel'),
-                TextColumn::make('visitor.email'),
+                    ->label('Hostel')
+                    ->localizeLabel(),
+                TextColumn::make('visitor.email')
+                    ->localizeLabel(),
                 TextColumn::make('updated_at')
-                    ->getStateUsing(fn (Visit $record) => $record->updated_at->diffForHumans()),
-                TextColumn::make('ip'),
-                TextColumn::make('languages'),
-                TextColumn::make('device'),
-                TextColumn::make('platform'),
-                TextColumn::make('browser'),
+                    ->getStateUsing(fn (Visit $record) => $record->updated_at->diffForHumans())
+                    ->localizeLabel(),
+                TextColumn::make('ip')
+                    ->localizeLabel(),
+                TextColumn::make('languages')
+                    ->localizeLabel(),
+                TextColumn::make('device')
+                    ->localizeLabel(),
+                TextColumn::make('platform')
+                    ->localizeLabel(),
+                TextColumn::make('browser')
+                    ->localizeLabel(),
             ])
         ;
     }

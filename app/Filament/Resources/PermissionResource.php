@@ -32,10 +32,12 @@ class PermissionResource extends Resource
             ->schema([
                 TextInput::make('name')
                     ->required()
-                    ->maxLength(125),
+                    ->maxLength(125)
+                    ->localizeLabel(),
                 TextInput::make('guard_name')
                     ->required()
-                    ->maxLength(125),
+                    ->maxLength(125)
+                    ->localizeLabel(),
             ])
         ;
     }
@@ -46,13 +48,17 @@ class PermissionResource extends Resource
             ->columns([
                 TextColumn::make('id')
                     ->searchable()
-                    ->sortable(),
+                    ->sortable()
+                    ->localizeLabel(),
                 TextColumn::make('name')
                     ->searchable()
-                    ->sortable(),
-                TextColumn::make('guard_name'),
+                    ->sortable()
+                    ->localizeLabel(),
+                TextColumn::make('guard_name')
+                    ->localizeLabel(),
                 TextColumn::make('updated_at')
-                    ->getStateUsing(fn (Permission $record) => $record->updated_at->diffForHumans()),
+                    ->getStateUsing(fn (Permission $record) => $record->updated_at->diffForHumans())
+                    ->localizeLabel(),
             ])
             ->filters([
             ])

@@ -14,8 +14,6 @@ use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Model;
 
 class CommentResource extends Resource
 {
@@ -36,15 +34,18 @@ class CommentResource extends Resource
                     ->searchable(['name', 'email', 'phone_number', 'id_number', 'id'])
                     ->required()
                     ->disabled()
-                    ->visibleOn(['edit', 'view']),
+                    ->visibleOn(['edit', 'view'])
+                    ->localizeLabel(),
                 Select::make('hostel_id')
                     ->relationship('hostel', 'title')
                     ->searchable(['title', 'description', 'id'])
                     ->required()
-                    ->disabled(),
+                    ->disabled()
+                    ->localizeLabel(),
                 MarkdownEditor::make('content')
                     ->required()
-                    ->maxLength(255),
+                    ->maxLength(255)
+                    ->localizeLabel(),
             ])
         ;
     }
@@ -55,14 +56,17 @@ class CommentResource extends Resource
             ->columns([
                 TextColumn::make('id')
                     ->searchable()
-                    ->sortable(),
+                    ->sortable()
+                    ->localizeLabel(),
                 TextColumn::make('content')
                     ->searchable()
-                    ->sortable(),
-                TextColumn::make('owner')
-                    ->getStateUsing(fn (Model $record) => $record->owner->name),
+                    ->sortable()
+                    ->localizeLabel(),
+                TextColumn::make('owner.name')
+                    ->localizeLabel(),
                 TextColumn::make('updated_at')
-                    ->getStateUsing(fn (Comment $record) => $record->updated_at->diffForHumans()),
+                    ->getStateUsing(fn (Comment $record) => $record->updated_at->diffForHumans())
+                    ->localizeLabel(),
             ])
             ->filters([
             ])
@@ -90,11 +94,6 @@ class CommentResource extends Resource
             'view' => Pages\ViewComment::route('/{record}'),
             'edit' => Pages\EditComment::route('/{record}/edit'),
         ];
-    }
-
-    public static function getEloquentQuery(): Builder
-    {
-        return Comment::query()->with('owner');
     }
 
     public static function canCreate(): bool

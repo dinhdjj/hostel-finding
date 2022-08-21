@@ -34,12 +34,15 @@ class RoleResource extends Resource
             ->schema([
                 TextInput::make('name')
                     ->required()
-                    ->maxLength(125),
+                    ->maxLength(125)
+                    ->localizeLabel(),
                 TextInput::make('guard_name')
                     ->required()
-                    ->maxLength(125),
+                    ->maxLength(125)
+                    ->localizeLabel(),
                 CheckboxList::make('permissions')
-                    ->relationship('permissions', 'name'),
+                    ->relationship('permissions', 'name')
+                    ->localizeLabel(),
             ])
         ;
     }
@@ -50,13 +53,17 @@ class RoleResource extends Resource
             ->columns([
                 TextColumn::make('id')
                     ->searchable()
-                    ->sortable(),
+                    ->sortable()
+                    ->localizeLabel(),
                 TextColumn::make('name')
                     ->searchable()
-                    ->sortable(),
-                TextColumn::make('guard_name'),
+                    ->sortable()
+                    ->localizeLabel(),
+                TextColumn::make('guard_name')
+                    ->localizeLabel(),
                 TextColumn::make('updated_at')
-                    ->getStateUsing(fn (Role $record) => $record->updated_at->diffForHumans()),
+                    ->getStateUsing(fn (Role $record) => $record->updated_at->diffForHumans())
+                    ->localizeLabel(),
             ])
             ->filters([
             ])
