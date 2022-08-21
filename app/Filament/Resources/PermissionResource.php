@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\PermissionResource\Pages;
+use App\Filament\Traits\Localizable;
 use App\Models\Permission;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Form;
@@ -17,6 +18,8 @@ use Filament\Tables\Columns\TextColumn;
 
 class PermissionResource extends Resource
 {
+    use Localizable;
+
     protected static ?string $model = Permission::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-shield-check';

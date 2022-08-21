@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\VoteResource\Pages;
+use App\Filament\Traits\Localizable;
 use App\Models\Vote;
 use Filament\Forms\Components\MarkdownEditor;
 use Filament\Forms\Components\Select;
@@ -16,6 +17,8 @@ use Filament\Tables\Columns\TextColumn;
 
 class VoteResource extends Resource
 {
+    use Localizable;
+
     protected static ?string $model = Vote::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-star';

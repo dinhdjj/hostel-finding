@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\CommentResource\Pages;
+use App\Filament\Traits\Localizable;
 use App\Models\Comment;
 use Filament\Forms\Components\MarkdownEditor;
 use Filament\Forms\Components\Select;
@@ -18,6 +19,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class CommentResource extends Resource
 {
+    use Localizable;
+
     protected static ?string $model = Comment::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-chat-alt-2';

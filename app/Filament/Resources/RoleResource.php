@@ -6,6 +6,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\RoleResource\Pages;
 use App\Filament\Resources\RoleResource\RelationManagers\UsersRelationManager;
+use App\Filament\Traits\Localizable;
 use App\Models\Role;
 use Filament\Forms\Components\CheckboxList;
 use Filament\Forms\Components\TextInput;
@@ -19,6 +20,8 @@ use Filament\Tables\Columns\TextColumn;
 
 class RoleResource extends Resource
 {
+    use Localizable;
+
     protected static ?string $model = Role::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-user-group';

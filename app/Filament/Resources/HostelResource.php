@@ -7,6 +7,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\HostelResource\Pages;
 use App\Filament\Resources\HostelResource\RelationManagers\CommentsRelationManager;
 use App\Filament\Resources\HostelResource\RelationManagers\VotesRelationManager;
+use App\Filament\Traits\Localizable;
 use App\Models\Hostel;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\MarkdownEditor;
@@ -28,6 +29,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class HostelResource extends Resource
 {
+    use Localizable;
+
     protected static ?string $model = Hostel::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-home';

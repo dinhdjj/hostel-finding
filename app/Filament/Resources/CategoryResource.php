@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\CategoryResource\Pages;
+use App\Filament\Traits\Localizable;
 use App\Models\Category;
 use Filament\Forms\Components\MarkdownEditor;
 use Filament\Forms\Components\TextInput;
@@ -16,6 +17,8 @@ use Filament\Tables\Columns\TextColumn;
 
 class CategoryResource extends Resource
 {
+    use Localizable;
+
     protected static ?string $model = Category::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-hashtag';
