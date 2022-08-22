@@ -24,7 +24,10 @@ class PermissionResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-shield-check';
 
-    protected static ?string $navigationGroup = 'System';
+    public static function getNavigationGroup(): ?string
+    {
+        return __('filament.navigation.groups.system');
+    }
 
     public static function form(Form $form): Form
     {

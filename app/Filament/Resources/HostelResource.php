@@ -35,7 +35,10 @@ class HostelResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-home';
 
-    protected static ?string $navigationGroup = 'Related Hostel';
+    public static function getNavigationGroup(): ?string
+    {
+        return __('filament.navigation.groups.hostel');
+    }
 
     public static function form(Form $form): Form
     {

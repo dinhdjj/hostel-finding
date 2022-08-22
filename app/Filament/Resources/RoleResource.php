@@ -26,7 +26,10 @@ class RoleResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-user-group';
 
-    protected static ?string $navigationGroup = 'System';
+    public static function getNavigationGroup(): ?string
+    {
+        return __('filament.navigation.groups.system');
+    }
 
     public static function form(Form $form): Form
     {
