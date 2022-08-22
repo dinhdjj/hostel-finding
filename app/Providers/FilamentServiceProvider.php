@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
+use Filament\Facades\Filament;
 use Filament\Support\Components\ViewComponent;
+use Illuminate\Foundation\Vite;
 use Illuminate\Support\ServiceProvider;
 use ReflectionClass;
 use Str;
@@ -23,6 +25,12 @@ class FilamentServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        Filament::serving(function (): void {
+            Filament::registerTheme(
+                app(Vite::class)('resources/css/filament.css'),
+            );
+        });
+
         ViewComponent::macro('localizeLabel', function () {
             $this->label(function (?string $model = null, $column = null, ...$args): string {
                 $name = $this->getName();
