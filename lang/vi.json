@@ -1,21 +1,3 @@
 {
-    "vote": "đánh giá",
-    "votes": "những đánh giá",
-    "visit": "lượt truy cập",
-    "visits": "những lượt truy cập",
-    "user": "người dùng",
-    "users": "những người dùng",
-    "role": "vai trò",
-    "roles": "những vai trò",
-    "permission": "quyền hạn",
-    "permissions": "những quyền hạn",
-    "hostel": "nhà trọ",
-    "hostels": "những nhà trọ",
-    "comment": "bình luận",
-    "comments": "những bình luận",
-    "category": "danh mục",
-    "categories": "những danh mục",
-    "amenity": "tiện ích",
-    "amenities": "những tiện ích",
     "found": "tìm thấy"
 }

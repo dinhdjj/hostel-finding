@@ -4,15 +4,22 @@ declare(strict_types=1);
 
 namespace App\Filament\Traits;
 
+use ReflectionClass;
+use Str;
+
 trait Localizable
 {
     public static function getModelLabel(): string
     {
-        return __(parent::getModelLabel());
+        $model = new ReflectionClass(static::getModel());
+
+        return __('models.'.lcfirst($model->getShortName()));
     }
 
     public static function getPluralModelLabel(): string
     {
-        return __(parent::getPluralModelLabel());
+        $model = new ReflectionClass(static::getModel());
+
+        return __('models.'.Str::plural(lcfirst($model->getShortName())));
     }
 }
