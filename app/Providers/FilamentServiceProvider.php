@@ -32,7 +32,9 @@ class FilamentServiceProvider extends ServiceProvider
         });
 
         ViewComponent::macro('localizeLabel', function () {
+            // @phpstan-ignore-next-line
             $this->label(function (?string $model = null, $column = null, ...$args): string {
+                /** @phpstan-ignore-next-line */
                 $name = $this->getName();
                 $model = new ReflectionClass($model ?? $column->getTable()->getModel());
                 $modelName = Str::lower($model->getShortName());
