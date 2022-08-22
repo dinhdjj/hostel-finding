@@ -15,10 +15,10 @@ class StatsOverview extends BaseWidget
         return [
             Card::query(User::whereHas('hostels', operator: '<'), now()->subMonth(), now())
                 ->cache()
-                ->count(label: 'New users'),
+                ->count(label: __('stats.user.count.*.no_hostel')),
             Card::query(User::whereHas('hostels'), now()->subMonth(), now())
                 ->cache()
-                ->count(label: 'New hosts'),
+                ->count(label: __('stats.user.count.*.has_hostel')),
         ];
     }
 }

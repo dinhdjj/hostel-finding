@@ -15,10 +15,10 @@ class StatsOverview extends BaseWidget
         return [
             Card::model(Vote::class, now()->subMonth(), now())
                 ->cache()
-                ->count(label: 'New votes'),
+                ->count(label: __('stats.vote.count.*')),
             Card::model(Vote::class, now()->subMonth(), now())
                 ->cache()
-                ->average('score', displaceValue: fn ($value) => number_format($value * 5, 1).' ✯'),
+                ->average('score', __('stats.vote.average.score'), displaceValue: fn ($value) => number_format($value * 5, 1).' ✯'),
         ];
     }
 }

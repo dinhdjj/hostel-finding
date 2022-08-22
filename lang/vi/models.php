@@ -31,7 +31,7 @@ return [
             'title' => 'tên nhà trọ',
         ],
         'visitor' => [
-            'email' => 'email',
+            'email' => 'email người truy cập',
         ],
     ],
     'user' => [
