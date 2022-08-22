@@ -21,6 +21,9 @@ class Hosting extends Component
     public $photos = [];
     public int $size = 0;
     public int $price = 0;
+    public string $address = '';
+    public float $latitude = 0;
+    public float $longitude = 0;
     public array $categoriesList = [];
     public array $amenitiesList = [];
 
@@ -36,6 +39,12 @@ class Hosting extends Component
         'photos.min' => 'Trường này cần ít nhất 5 ảnh',
     ];
 
+    public function setLatLng(array $latLng): void
+    {
+        $this->latitude = $latLng['lat'];
+        $this->longitude = $latLng['lng'];
+    }
+
     public function createHostel(): void
     {
         $this->validate();
@@ -45,9 +54,9 @@ class Hosting extends Component
             'description' => $this->description,
             'size' => $this->size,
             'monthly_price' => $this->price,
-            'address' => '',
-            'latitude' => 11.11111111111113,
-            'longitude' => 11.11111111111113,
+            'address' => $this->address,
+            'latitude' => $this->latitude,
+            'longitude' => $this->longitude,
             'owner_id' => auth()->id(),
         ]);
         $this->categoriesList = array_filter($this->categoriesList);

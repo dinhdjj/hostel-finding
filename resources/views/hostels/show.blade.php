@@ -1,15 +1,15 @@
 <x-guest-layout>
-    <div class="px-12">
+    <div class="px-32">
         <div>
             Header
             <hr>
         </div>
         {{-- Title --}}
-        <div class="flex-col items-center">
+        <div class="flex-col items-center border-b-2 border-slate-500">
             <div>
                 <h1 class="text-9xl font-bold">{{ $hostel->title }}</h1>
             </div>
-            <div class="flex items-center">
+            <div class="flex items-center pb-5">
                 <div class="flex items-center font-bold">
                     {{ round($hostel->votes_avg_score * 5, 2) }}
                     <x-heroicon-s-star class="inline-block h-4" />
@@ -60,7 +60,7 @@
             </div>
         </div>
         {{-- info --}}
-        <div class="mt-7 flex">
+        <div class="mt-7 flex border-t-2 border-slate-500 pt-5 pb-5">
             <div class="basis-3/4">
                 {{-- owner --}}
                 <div>
@@ -86,7 +86,7 @@
                     <div class="">
                         @foreach ($hostel->amenities as $amenity)
                             <div
-                                class="leading-sm max-w-min inline-flex max-h-min items-center rounded-full bg-yellow-300 px-3 py-1 text-xs font-bold uppercase text-blue-700">
+                                class="leading-sm inline-flex max-h-min max-w-min items-center rounded-full bg-yellow-300 px-3 py-1 text-xs font-bold uppercase text-blue-700">
                                 <x-heroicon-o-tag />
                                 {{ $amenity->name }}
                             </div>
@@ -116,14 +116,14 @@
                                     <div class="fixed inset-0 z-30 flex items-center justify-center overflow-auto bg-black bg-opacity-50"
                                         x-show="more" x-cloak>
                                         <!-- Modal inner -->
-                                        <div class="max-w-3xl mx-auto rounded-lg bg-white px-6 py-4 text-left shadow-lg"
+                                        <div class="mx-auto max-w-3xl rounded-lg bg-white px-6 py-4 text-left shadow-lg"
                                             @click.away="more = false"
                                             x-transition:enter="motion-safe:ease-out duration-300"
                                             x-transition:enter-start="opacity-0 scale-90"
                                             x-transition:enter-end="opacity-100 scale-100">
                                             <!-- Title / Close-->
                                             <div class="flex items-center justify-between">
-                                                <h5 class="max-w-none mr-3 text-lg font-bold text-black">Description
+                                                <h5 class="mr-3 max-w-none text-lg font-bold text-black">Description
                                                 </h5>
                                             </div>
                                             <!-- content -->
@@ -142,10 +142,67 @@
                 </div>
             </div>
         </div>
-        <div>
+        <div class="border-t-2 border-b-2 border-slate-500 pb-20">
             @livewire('comment', ['hostel' => $hostel])
         </div>
         {{-- map --}}
-    </div>
 
+        <div x-data="dropdown" class="my-10 px-20">
+            <div class="my-5 text-2xl font-bold">
+                Nơi bạn sẽ đến
+            </div>
+            <div x-ref="map" class="h-96 w-full"></div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('dropdown', () => ({
+                google: null,
+                map: null,
+                latitude: @json($hostel->latitude),
+                longitude: @json($hostel->longitude),
+                title: @json($hostel->title),
+                async init() {
+                    this.google = await window.useGoogleMaps();
+
+                    this.map = new this.google.maps.Map(this.$refs.map, {
+                        center: {
+                            lat: this.latitude,
+                            lng: this.longitude
+                        },
+                        zoom: 14,
+                        maxZoom: 19,
+                        minZoom: 7,
+                    });
+                    const marker = window.createHtmlMapMarker(this.google, {
+                        position: new google.maps.LatLng(
+                            this.latitude,
+                            this.longitude
+                        ),
+                        map: this.map,
+                        html: /*html*/ `
+                        <div class="p-2 rounded-full bg-red-200">
+                            <div class="p-3 rounded-full bg-red-500 flex items-center justify-center">
+                                <svg class="text-white"  viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="presentation" focusable="false" style="display: block; height: 22px; width: 22px; fill: currentcolor;">
+                                    <path d="M8.602 1.147l.093.08 7.153 6.914-.696.718L14 7.745V14.5a.5.5 0 0 1-.41.492L13.5 15H10V9.5a.5.5 0 0 0-.41-.492L9.5 9h-3a.5.5 0 0 0-.492.41L6 9.5V15H2.5a.5.5 0 0 1-.492-.41L2 14.5V7.745L.847 8.86l-.696-.718 7.153-6.915a1 1 0 0 1 1.297-.08z"></path>
+                                </svg>
+                            </div>
+                        </div>
+                `,
+                    });
+
+                }
+            }))
+        })
+
+        // document.addEventListener('alpine:init', () => {
+        //     Alpine.data('dropdown', () => ({
+        //         open: false,
+
+        //         toggle() {
+        //             this.open = !this.open
+        //         },
+        //     }))
+        // })
+    </script>
 </x-guest-layout>

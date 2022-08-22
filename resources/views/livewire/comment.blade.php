@@ -7,10 +7,18 @@
         {{ round($hostel->votes_avg_score * 5, 2) }}
         <x-heroicon-s-star class="inline-block h-4" />
         <x-bi-dot />
-        {{ $hostel->votes_count }} reviews
+        <div class="my-4 inline-block text-base leading-6 text-gray-900">
+            {{ $hostel->votes_count }} đánh giá
+        </div>
         <x-bi-dot />
         {{ $hostel->comments_count }} comments
     </div>
+    @if (in_array(auth()->id(), $hostel->votes->pluck('owner_id')->toArray()))
+        <div class="text-sm font-semibold text-red-500">
+            You have voted this hostel {{ $hostel->votes->where('owner_id', auth()->id())->first()->score }} stars
+        </div>
+    @else
+    @endif
     {{-- comment --}}
     @if (Auth::check())
         @if ($comments->count() > 0)
@@ -89,13 +97,13 @@
                     Post comment</button>
             </form>
         </div>
-</div>
-@else
-<div class="text-center">
-    <a href="{{ route('login') }}" class="text-indigo-500 hover:text-indigo-700">
-        Đăng nhập để bình luận
-    </a>
-</div>
-@endif
-{{-- end comment --}}
+        </>
+    @else
+        <div class="text-center">
+            <a href="{{ route('login') }}" class="text-indigo-500 hover:text-indigo-700">
+                Đăng nhập để bình luận
+            </a>
+        </div>
+    @endif
+    {{-- end comment --}}
 </div>
