@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use App\Http\Controllers\HostelIndexController;
+use App\Models\Hostel;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,7 +17,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', fn () => view('welcome'));
+Route::get('', HostelIndexController::class)
+    ->name('hostels.index')
+;
+
+// TODO: add a route for the hostel detail page
+Route::get('hostels/{hostel}', fn (Hostel $hostel) => $hostel)
+    ->name('hostels.show')
+;
 
 Route::middleware([
     'auth:sanctum',
