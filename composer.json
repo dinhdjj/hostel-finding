@@ -9,6 +9,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.0.2",
+        "blade-ui-kit/blade-heroicons": "^1.3",
         "dinhdjj/filament-model-widgets": "<2",
         "dinhdjj/visit": "^1.0",
         "filament/filament": "^2.15",
