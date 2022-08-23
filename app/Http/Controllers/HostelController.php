@@ -27,4 +27,11 @@ class HostelController extends Controller
     {
         return view('hostels.hosting');
     }
+
+    public function manage(Request $request, Hostel $hostel)
+    {
+        return view('hostels.edit', [
+            'hostel' => $hostel,
+        ]);
+    }
 }
