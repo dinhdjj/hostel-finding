@@ -11,11 +11,19 @@
     <!-- Fonts -->
     <link rel="stylesheet" href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap">
 
+    <style>
+        [x-cloak] {
+            display: none !important;
+        }
+    </style>
+
     <!-- Scripts -->
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @vite(['resources/css/app.css', 'resources/css/places-autocomplete-dropdown.css', 'resources/js/app.js'])
 </head>
 
 <body>
+    <x-header.search class="mb-4 shadow" />
+
     <div class="font-sans text-gray-900 antialiased">
         {{ $slot }}
     </div>
