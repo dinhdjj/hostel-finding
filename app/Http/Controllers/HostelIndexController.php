@@ -6,15 +6,14 @@ namespace App\Http\Controllers;
 
 use App\Models\Hostel;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class HostelIndexController extends Controller
 {
     /**
      * Handle the incoming request.
-     *
-     * @return \Illuminate\Http\Response
      */
-    public function __invoke(Request $request)
+    public function __invoke(Request $request): View
     {
         $trendingHostel = Hostel::with(['owner', 'categories'])
             ->withAggregate('votes', 'score')
