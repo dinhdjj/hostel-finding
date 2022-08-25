@@ -7,18 +7,22 @@ namespace App\Http\Livewire;
 use App\Models\Amenity;
 use App\Models\Category;
 use App\Models\Hostel;
+use Filament\Forms\Components\Placeholder;
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
+use Filament\Forms\Concerns\InteractsWithForms;
+use Filament\Forms\Contracts\HasForms;
 use Filament\Notifications\Actions\Action;
 use Filament\Notifications\Notification;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
-class Hosting extends Component
+class Hosting extends Component implements HasForms
 {
+    use InteractsWithForms;
     use WithFileUploads;
 
     public string $title = '';
     public ?string $description = null;
-    public $photos = [];
     public int $size = 0;
     public int $price = 0;
     public string $address = '';
@@ -26,17 +30,14 @@ class Hosting extends Component
     public float $longitude = 0;
     public array $categoriesList = [];
     public array $amenitiesList = [];
+    public $firstMedia;
+    public $media;
 
     protected $rules = [
         'title' => ['required', 'string', 'max:255'],
         'description' => ['string'],
-        'photos' => ['required', 'array', 'min:5'],
-        'photos.*' => ['image'],
         'size' => ['required', 'integer', 'min:1'],
         'price' => ['required', 'integer', 'min:1'],
-    ];
-    protected $messages = [
-        'photos.min' => 'Trường này cần ít nhất 5 ảnh',
     ];
 
     public function setLatLng(array $latLng): void
@@ -63,7 +64,7 @@ class Hosting extends Component
         $this->amenitiesList = array_filter($this->amenitiesList);
         $hostel->categories()->sync($this->categoriesList);
         $hostel->amenities()->sync($this->amenitiesList);
-        foreach ($this->photos as $photo) {
+        foreach ($this->media as $photo) {
             $hostel->addMedia($photo)->toMediaCollection();
         }
         $this->photos = [];
@@ -96,5 +97,18 @@ class Hosting extends Component
             'categories' => $categories,
             'amenities' => $amenities,
         ]);
+    }
+
+    protected function getFormSchema(): array
+    {
+        return [
+            Placeholder::make('Images')
+                ->content('Ảnh cuối cùng sẽ là ảnh đại diện cho nhà của bạn hãy sắp xếp theo thứ tự thật chính xác!'),
+            SpatieMediaLibraryFileUpload::make('media')
+                ->label('')
+                ->multiple()
+                ->enableReordering()
+                ->minFiles(5),
+        ];
     }
 }

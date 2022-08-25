@@ -33,37 +33,28 @@
                     <div class="my-5 text-2xl font-bold">
                         Phòng trọ của bạn ở đâu
                     </div>
-                    <button type="button" x-ref="button"
-                        class="mb-5 rounded border-b-4 border-blue-700 bg-blue-500 py-2 px-4 font-bold text-white hover:border-blue-500 hover:bg-blue-400">Địa
-                        chỉ hiện tại</button>
-                    <div>
-                        <input type="text" x-ref="address"
-                            class="mb-5 w-96 rounded-md border border-gray-300 px-4 py-2" placeholder="Tìm kiếm">
+                    <div class="gap-10 sm:flex">
+                        <button type="button" x-ref="button"
+                            class="mb-5 rounded border-b-4 border-blue-700 bg-blue-500 py-2 px-4 font-bold text-white hover:border-blue-500 hover:bg-blue-400">Địa
+                            chỉ hiện tại</button>
+                        <div>
+                            <input type="text" x-ref="address"
+                                class="mb-5 w-96 rounded-md border border-gray-300 px-4 py-2" placeholder="Tìm kiếm">
+                        </div>
                     </div>
                     <div x-ref="map" wire:ignore class="h-96 w-full"></div>
-
-                </div>
-                <div class="min sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
-                    <label for="cover-photo" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"> Ảnh
-                    </label>
-                    <div x-data="{ isUploading: false, progress: 0 }" x-on:livewire-upload-start="isUploading = true"
-                        x-on:livewire-upload-finish="isUploading = false"
-                        x-on:livewire-upload-error="isUploading = false"
-                        x-on:livewire-upload-progress="progress = $event.detail.progress">
-                        <!-- File Input -->
-                        <input type="file" wire:model.defer="photos" multiple accept="image/*" required>
-
-                        <!-- Progress Bar -->
-                        <div x-show="isUploading">
-                            <progress max="100" x-bind:value="progress"></progress>
-                        </div>
-                        <div>
-                            @error('photos')
-                                <div class="text-sm text-red-500">{{ $message }}</div>
-                            @enderror
-                        </div>
+                    <div class="flex">
+                        <span
+                            class="inline-flex items-center rounded-l-md border border-r-0 border-gray-300 bg-gray-200 px-3 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-600 dark:text-gray-400">
+                            Địa chỉ
+                        </span>
+                        <input type="text" wire:model="address" disabled
+                            class="block w-full min-w-0 flex-1 rounded-none rounded-r-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+                            placeholder="...">
                     </div>
-
+                </div>
+                <div class="sm:border-t sm:border-gray-200">
+                    {{ $this->form }}
                 </div>
                 <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
                     <label for="title" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"> Kích thước
@@ -230,7 +221,7 @@
                         if (status === 'OK') {
                             if (results[0]) {
                                 this.address = results[0].formatted_address;
-                                this.address = results[0].formatted_address;
+                                this.$wire.address = this.address;
                                 this.$wire.setLatLng(this.center.toJSON());
                             } else {
                                 window.alert('No results found');
@@ -260,7 +251,7 @@
                         if (status === 'OK') {
                             if (results[0]) {
                                 this.address = results[0].formatted_address;
-                                this.address = results[0].formatted_address;
+                                this.$wire.address = this.address;
                                 this.$wire.setLatLng(this.center.toJSON());
                             } else {
                                 window.alert('No results found');
@@ -285,8 +276,6 @@
                         }, (results, status) => {
                             if (status === 'OK') {
                                 if (results[0]) {
-                                    this.address = results[0]
-                                        .formatted_address;
                                     this.address = results[0]
                                         .formatted_address;
                                     this.$wire.address = this.address;

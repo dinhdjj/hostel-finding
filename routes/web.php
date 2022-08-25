@@ -18,8 +18,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', fn () => view('welcome'));
 Route::get('/hostels/{hostel}', [HostelController::class, 'show'])->name('hostels.show');
-Route::get('/hosting', [HostelController::class, 'hosting'])->name('hosting')->middleware('auth');
-Route::get('/manage/{hostel}', [HostelController::class, 'manage'])->name('manage')->middleware('auth');
+Route::get('/hosting', [HostelController::class, 'hosting'])->name('hostels.create')->middleware('auth');
+Route::get('/manage', [HostelController::class, 'manage'])->name('hostels.manage')->middleware('auth');
+Route::get('/edit/{hostel}', [HostelController::class, 'edit'])->name('hostels.edit')->middleware('auth');
 
 Route::middleware([
     'auth:sanctum',

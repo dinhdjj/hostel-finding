@@ -20,9 +20,9 @@ return new class() extends Migration
             $table->id();
             $table->string('content');
             $table->timestamps();
-            $table->foreignIdFor(Comment::class, 'parent_id')->nullable()->constrained('comments');
+            $table->foreignIdFor(Comment::class, 'parent_id')->nullable()->constrained('comments')->onDelete('cascade');
             $table->foreignIdFor(User::class, 'owner_id')->constrained('users');
-            $table->foreignIdFor(Hostel::class)->constrained();
+            $table->foreignIdFor(Hostel::class)->constrained()->onDelete('cascade');
         });
     }
 
