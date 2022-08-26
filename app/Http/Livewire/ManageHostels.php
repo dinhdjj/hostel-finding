@@ -15,13 +15,14 @@ use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Filters\TernaryFilter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\View\View;
 use Livewire\Component;
 
 class ManageHostels extends Component implements HasTable
 {
     use InteractsWithTable;
 
-    public function render()
+    public function render(): View
     {
         return view('livewire.manage-hostels');
     }
@@ -37,18 +38,18 @@ class ManageHostels extends Component implements HasTable
             TextColumn::make('title')
                 ->searchable(),
             BooleanColumn::make('found')
-                ->getStateUsing(fn (Model $record) => $record->found_at->lte(now())),
+                ->getStateUsing(fn (Hostel $record) => $record->found_at->lte(now())),
             TextColumn::make('address')
                 ->searchable(),
             TextColumn::make('score')
                 ->avg('votes', 'score')
-                ->getStateUsing(fn (Hostel $record) => $record->votes_score * 5 .' ✯'),
+                ->getStateUsing(fn (Hostel $record) => $record->votes_score * 5 .' ✯'), // @phpstan-ignore-line
             TextColumn::make('size')
-                ->getStateUsing(fn (Model $record) => $record->size.' m²')
+                ->getStateUsing(fn (Hostel $record) => $record->size.' m²')
                 ->searchable()
                 ->sortable(),
             TextColumn::make('monthly_price')
-                ->getStateUsing(fn (Model $record) => number_format($record->monthly_price, 0, '.', ',').' ₫')
+                ->getStateUsing(fn (Hostel $record) => number_format($record->monthly_price, 0, '.', ',').' ₫')
                 ->searchable()
                 ->sortable(),
             TextColumn::make('updated_at')

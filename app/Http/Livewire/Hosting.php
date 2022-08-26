@@ -13,6 +13,7 @@ use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Notifications\Actions\Action;
 use Filament\Notifications\Notification;
+use Illuminate\View\View;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
@@ -30,10 +31,9 @@ class Hosting extends Component implements HasForms
     public float $longitude = 0;
     public array $categoriesList = [];
     public array $amenitiesList = [];
-    public $firstMedia;
-    public $media;
+    public mixed $media;
 
-    protected $rules = [
+    protected array $rules = [
         'title' => ['required', 'string', 'max:255'],
         'description' => ['string'],
         'size' => ['required', 'integer', 'min:1'],
@@ -67,11 +67,11 @@ class Hosting extends Component implements HasForms
         foreach ($this->media as $photo) {
             $hostel->addMedia($photo)->toMediaCollection();
         }
-        $this->photos = [];
+        $this->media = [];
         $this->title = '';
         $this->description = '';
         $this->size = 0;
-        $this->monthly_price = 0;
+        $this->price = 0;
         $this->categoriesList = [];
         $this->amenitiesList = [];
 
@@ -88,7 +88,7 @@ class Hosting extends Component implements HasForms
         ;
     }
 
-    public function render()
+    public function render(): View
     {
         $categories = Category::all();
         $amenities = Amenity::all();

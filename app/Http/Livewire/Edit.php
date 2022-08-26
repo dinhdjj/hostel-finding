@@ -15,6 +15,8 @@ use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Notifications\Actions\Action;
 use Filament\Notifications\Notification;
+use Illuminate\Support\Collection;
+use Illuminate\View\View;
 use Livewire\Component;
 
 class Edit extends Component implements HasForms
@@ -22,16 +24,16 @@ class Edit extends Component implements HasForms
     use InteractsWithForms;
 
     public Hostel $hostel;
-    public $title = '';
-    public $description = '';
-    public $size = 0;
-    public $monthly_price = 0;
-    public $address = '';
-    public $categoriesList = [];
-    public $amenitiesList = [];
-    public $latitude = 0;
-    public $longitude = 0;
-    public $media;
+    public string $title = '';
+    public string $description = '';
+    public int $size = 0;
+    public int $monthly_price = 0;
+    public string $address = '';
+    public Collection $categoriesList;
+    public Collection $amenitiesList;
+    public float $latitude = 0;
+    public float $longitude = 0;
+    public mixed $media;
 
     public function mount(Hostel $hostel): void
     {
@@ -45,7 +47,7 @@ class Edit extends Component implements HasForms
         $this->longitude = $hostel->longitude;
         $this->categoriesList = $hostel->categories->pluck('id');
         $this->amenitiesList = $hostel->amenities->pluck('id');
-        $this->form->fill([
+        $this->form->fill([ // @phpstan-ignore-line
             'title' => $this->hostel->title,
             'description' => $this->hostel->description,
             'size' => $this->hostel->size,
@@ -63,14 +65,13 @@ class Edit extends Component implements HasForms
     public function submit(): void
     {
         $hostel = Hostel::find($this->hostel->id);
-        $data = $this->form->getState();
+        $data = $this->form->getState(); // @phpstan-ignore-line
         $hostel->update([
             'title' => $data['title'],
             'description' => $data['description'],
             'size' => $data['size'],
             'monthly_price' => $data['monthly_price'],
             'address' => $data['address'],
-            $this->form->getState(),
             'latitude' => $this->latitude,
             'longitude' => $this->longitude,
         ]);
@@ -89,7 +90,7 @@ class Edit extends Component implements HasForms
         ;
     }
 
-    public function render()
+    public function render(): View
     {
         $categories = Category::all();
         $amenities = Amenity::all();
@@ -100,7 +101,7 @@ class Edit extends Component implements HasForms
         ]);
     }
 
-    protected function getFormModel()
+    protected function getFormModel(): mixed
     {
         return $this->hostel;
     }

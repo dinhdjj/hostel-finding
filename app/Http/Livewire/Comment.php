@@ -7,6 +7,7 @@ namespace App\Http\Livewire;
 use App\Models\Comment as ModelsComment;
 use App\Models\Hostel;
 use Auth;
+use Illuminate\View\View;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -38,7 +39,7 @@ class Comment extends Component
         $this->reloadHostel();
     }
 
-    public function replyComment($id): void
+    public function replyComment(int $id): void
     {
         $this->validate([
             'reply' => 'required|string',
@@ -63,7 +64,7 @@ class Comment extends Component
         }
     }
 
-    public function render()
+    public function render(): View
     {
         $comments = ModelsComment::where('hostel_id', $this->hostel->id)->where('parent_id', null)->orderBy('created_at', 'desc')->with('owner', 'parent', 'children')->paginate(6);
         foreach ($comments as $comment) {

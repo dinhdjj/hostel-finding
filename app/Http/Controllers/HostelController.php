@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Models\Hostel;
-use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class HostelController extends Controller
 {
-    public function show(Request $request, Hostel $hostel)
+    public function show(Hostel $hostel): View
     {
         $hostel->loadAggregate('votes', 'score', 'avg')->loadCount('votes', 'comments');
         $hostel->comments->load('owner', 'parent', 'children');
@@ -23,17 +23,17 @@ class HostelController extends Controller
         ]);
     }
 
-    public function hosting()
+    public function hosting(): View
     {
         return view('hostels.hosting');
     }
 
-    public function manage()
+    public function manage(): View
     {
         return view('hostels.manage');
     }
 
-    public function edit(Request $request, Hostel $hostel)
+    public function edit(Hostel $hostel): View
     {
         return view('hostels.edit', [
             'hostel' => $hostel,
