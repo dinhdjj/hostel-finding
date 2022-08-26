@@ -1,5 +1,5 @@
 const defaultTheme = require('tailwindcss/defaultTheme');
-const colors = require('tailwindcss/colors') 
+const colors = require('tailwindcss/colors');
 /** @type {import('tailwindcss').Config} */
 module.exports = {
     content: [
@@ -7,17 +7,17 @@ module.exports = {
         './vendor/laravel/jetstream/**/*.blade.php',
         './storage/framework/views/*.php',
         './resources/views/**/*.blade.php',
-        './vendor/filament/**/*.blade.php', 
+        './vendor/filament/**/*.blade.php',
     ],
 
     theme: {
         extend: {
-            colors: { 
+            colors: {
                 danger: colors.rose,
                 primary: colors.blue,
                 success: colors.green,
                 warning: colors.yellow,
-            }, 
+            },
             fontFamily: {
                 sans: ['Nunito', ...defaultTheme.fontFamily.sans],
             },
