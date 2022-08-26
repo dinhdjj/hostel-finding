@@ -15,13 +15,13 @@ class StatsOverview extends BaseWidget
         return [
             Card::model(Hostel::class, now()->subMonth(), now())
                 ->cache()
-                ->count(label: 'New hostels'),
+                ->count(label: __('stats.hostel.count.*')),
             Card::query(Hostel::where('found_at', '<=', now()), now()->subMonth(), now())
                 ->cache()
-                ->count(label: 'Hostels Found'),
+                ->count(label: __('stats.hostel.count.*.found')),
             Card::model(Hostel::class, now()->subMonth(), now())
                 ->cache()
-                ->average('monthly_price', label: 'Monthly Price Trend', displaceValue: fn (int $value) => number_format($value).'₫'),
+                ->average('monthly_price', label: __('stats.hostel.average.price'), displaceValue: fn (int $value) => number_format($value).'₫'),
         ];
     }
 }

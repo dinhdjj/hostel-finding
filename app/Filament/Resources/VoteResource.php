@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\VoteResource\Pages;
+use App\Filament\Traits\Localizable;
 use App\Models\Vote;
 use Filament\Forms\Components\MarkdownEditor;
 use Filament\Forms\Components\Select;
@@ -16,11 +17,16 @@ use Filament\Tables\Columns\TextColumn;
 
 class VoteResource extends Resource
 {
+    use Localizable;
+
     protected static ?string $model = Vote::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-star';
 
-    protected static ?string $navigationGroup = 'Related Hostel';
+    public static function getNavigationGroup(): ?string
+    {
+        return __('filament.navigation.groups.hostel');
+    }
 
     public static function form(Form $form): Form
     {
@@ -30,20 +36,26 @@ class VoteResource extends Resource
                     ->relationship('owner', 'email')
                     ->disabled()
                     ->required()
-                    ->visibleOn(['edit', 'view']),
+                    ->visibleOn(['edit', 'view'])
+                    ->localizeLabel(),
                 Select::make('hostel_id')
                     ->relationship('hostel', 'title')
                     ->disabled()
-                    ->required(),
-                Select::make('score')->options([
-                    '1' => '1 ✯',
-                    '2' => '2 ✯',
-                    '3' => '3 ✯',
-                    '4' => '4 ✯',
-                    '5' => '5 ✯',
-                ])->required(),
+                    ->required()
+                    ->localizeLabel(),
+                Select::make('score')
+                    ->options([
+                        '1' => '1 ✯',
+                        '2' => '2 ✯',
+                        '3' => '3 ✯',
+                        '4' => '4 ✯',
+                        '5' => '5 ✯',
+                    ])
+                    ->required()
+                    ->localizeLabel(),
                 MarkdownEditor::make('description')
-                    ->maxLength(255),
+                    ->maxLength(255)
+                    ->localizeLabel(),
             ])
         ;
     }
@@ -52,13 +64,18 @@ class VoteResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('owner.name'),
-                TextColumn::make('hostel.title'),
+                TextColumn::make('owner.name')
+                    ->localizeLabel(),
+                TextColumn::make('hostel.title')
+                    ->localizeLabel(),
                 TextColumn::make('score')
-                    ->getStateUsing(fn (Vote $record) => $record->score * 5 .' ✯'),
-                TextColumn::make('description'),
+                    ->getStateUsing(fn (Vote $record) => $record->score * 5 .' ✯')
+                    ->localizeLabel(),
+                TextColumn::make('description')
+                    ->localizeLabel(),
                 TextColumn::make('updated_at')
-                    ->getStateUsing(fn (Vote $record) => $record->updated_at->diffForHumans()),
+                    ->getStateUsing(fn (Vote $record) => $record->updated_at->diffForHumans())
+                    ->localizeLabel(),
             ])
             ->filters([
             ])

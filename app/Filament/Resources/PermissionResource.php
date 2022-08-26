@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\PermissionResource\Pages;
+use App\Filament\Traits\Localizable;
 use App\Models\Permission;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Form;
@@ -17,11 +18,16 @@ use Filament\Tables\Columns\TextColumn;
 
 class PermissionResource extends Resource
 {
+    use Localizable;
+
     protected static ?string $model = Permission::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-shield-check';
 
-    protected static ?string $navigationGroup = 'System';
+    public static function getNavigationGroup(): ?string
+    {
+        return __('filament.navigation.groups.system');
+    }
 
     public static function form(Form $form): Form
     {
@@ -29,10 +35,12 @@ class PermissionResource extends Resource
             ->schema([
                 TextInput::make('name')
                     ->required()
-                    ->maxLength(125),
+                    ->maxLength(125)
+                    ->localizeLabel(),
                 TextInput::make('guard_name')
                     ->required()
-                    ->maxLength(125),
+                    ->maxLength(125)
+                    ->localizeLabel(),
             ])
         ;
     }
@@ -43,13 +51,17 @@ class PermissionResource extends Resource
             ->columns([
                 TextColumn::make('id')
                     ->searchable()
-                    ->sortable(),
+                    ->sortable()
+                    ->localizeLabel(),
                 TextColumn::make('name')
                     ->searchable()
-                    ->sortable(),
-                TextColumn::make('guard_name'),
+                    ->sortable()
+                    ->localizeLabel(),
+                TextColumn::make('guard_name')
+                    ->localizeLabel(),
                 TextColumn::make('updated_at')
-                    ->getStateUsing(fn (Permission $record) => $record->updated_at->diffForHumans()),
+                    ->getStateUsing(fn (Permission $record) => $record->updated_at->diffForHumans())
+                    ->localizeLabel(),
             ])
             ->filters([
             ])

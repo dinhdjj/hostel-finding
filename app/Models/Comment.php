@@ -26,6 +26,10 @@ class Comment extends Model
 
     protected $appends = [];
 
+    protected $with = [
+        'children',
+    ];
+
     public function parent(): BelongsTo
     {
         return $this->belongsTo(self::class, 'parent_id');
@@ -44,5 +48,12 @@ class Comment extends Model
     public function hostel(): BelongsTo
     {
         return $this->belongsTo(Hostel::class);
+    }
+
+    protected static function booted(): void
+    {
+        static::deleting(function (self $comment): void {
+            $comment->children->each->delete();
+        });
     }
 }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\HostelResource\RelationManagers;
 
+use App\Filament\Traits\Localizable;
 use App\Models\Vote;
 use Filament\Forms\Components\MarkdownEditor;
 use Filament\Forms\Components\Select;
@@ -15,6 +16,8 @@ use Filament\Tables\Columns\TextColumn;
 
 class VotesRelationManager extends RelationManager
 {
+    use Localizable;
+
     protected static string $relationship = 'votes';
 
     protected static ?string $recordTitleAttribute = 'description';

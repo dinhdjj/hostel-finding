@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Filament\Resources\HostelResource\RelationManagers;
 
 use App\Filament\Resources\CommentResource;
+use App\Filament\Traits\Localizable;
 use Filament\Forms\Components\MarkdownEditor;
 use Filament\Resources\Form;
 use Filament\Resources\RelationManagers\RelationManager;
@@ -15,6 +16,8 @@ use Illuminate\Database\Eloquent\Relations\Relation;
 
 class CommentsRelationManager extends RelationManager
 {
+    use Localizable;
+
     protected static string $relationship = 'comments';
 
     protected static ?string $recordTitleAttribute = 'content';

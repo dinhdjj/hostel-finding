@@ -15,7 +15,7 @@ class StatsOverview extends BaseWidget
         return [
             Card::model(Comment::class, now()->subMonth(), now())
                 ->cache()
-                ->count(label: 'New comments'),
+                ->count(label: __('stats.comment.count.*')),
         ];
     }
 }
