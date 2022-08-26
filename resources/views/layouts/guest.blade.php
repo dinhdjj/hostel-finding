@@ -19,14 +19,18 @@
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/css/places-autocomplete-dropdown.css', 'resources/js/app.js'])
+
+    <!-- Styles -->
+    @livewireStyles
 </head>
 
 <body>
-    <x-header.search class="mb-4 shadow" />
 
-    <div class="font-sans text-gray-900 antialiased">
+    <div {{ $attributes->class('flex-1 font-sans text-gray-900 antialiased') }}>
         {{ $slot }}
     </div>
+
+    @livewireScripts
 </body>
 
 </html>

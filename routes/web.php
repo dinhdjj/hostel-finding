@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use App\Http\Controllers\HostelIndexController;
+use App\Http\Controllers\HostelSearchController;
 use App\Models\Hostel;
 use Illuminate\Support\Facades\Route;
 
@@ -22,7 +23,7 @@ Route::get('', HostelIndexController::class)
 ;
 
 // TODO: add a route for the hostel search page
-Route::get('hostels/search', fn () => 'route::hostels.search')
+Route::get('hostels/search', HostelSearchController::class)
     ->name('hostels.search')
 ;
 
