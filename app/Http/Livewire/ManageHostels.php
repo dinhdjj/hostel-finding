@@ -5,9 +5,10 @@ declare(strict_types=1);
 namespace App\Http\Livewire;
 
 use App\Models\Hostel;
+use Auth;
 use Closure;
 use Filament\Tables\Actions\Action;
-use Filament\Tables\Actions\DeleteBulkAction;
+use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Columns\BooleanColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Concerns\InteractsWithTable;
@@ -63,13 +64,16 @@ class ManageHostels extends Component implements HasTable
             Action::make('edit')
                 ->url(fn (Hostel $record): string => route('hostels.edit', $record))
                 ->icon('feathericon-edit')
-                ->openUrlInNewTab(),
+                ->openUrlInNewTab()
+                ->visible(fn (Hostel $record): bool => Auth::user()->can('update', $record)),
+            DeleteAction::make('delete')
+                ->visible(fn (Hostel $record): bool => Auth::user()->can('delete', $record)),
         ];
     }
 
     protected function getTableBulkActions(): array
     {
-        return [DeleteBulkAction::make()];
+        return [];
     }
 
     protected function getTableFilters(): array

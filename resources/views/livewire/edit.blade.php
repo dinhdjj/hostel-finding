@@ -1,5 +1,7 @@
-<div class="px-20">
-    <form wire:submit.prevent="submit">
+<div class="py-4 px-20">
+    <h1 class="text-xl font-semibold">Chỉnh sửa nhà trọ {{ $hostel->title }}</h1>
+
+    <form wire:submit.prevent="submit" class="pt-4">
         {{ $this->form }}
         <div x-data="dropdown"
             class="m:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">

@@ -1,8 +1,8 @@
-<form wire:submit.prevent="createHostel" class="space-y-8 divide-y divide-gray-200 px-20">
+<form wire:submit.prevent="createHostel" class="space-y-8 divide-y divide-gray-200 py-6 px-20">
     <div class="space-y-8 divide-y divide-gray-200 sm:space-y-5">
         <div>
             <div>
-                <h3 class="text-lg font-medium leading-6 text-gray-900">Become a host</h3>
+                <h3 class="text-lg font-medium leading-6 text-gray-900">Đăng nhà trọ</h3>
                 <p class="mt-1 max-w-2xl text-sm text-gray-500">Chào mừng {{ Auth::user()->name }} trở lại</p>
             </div>
 
@@ -38,7 +38,7 @@
                             class="mb-5 rounded border-b-4 border-blue-700 bg-blue-500 py-2 px-4 font-bold text-white hover:border-blue-500 hover:bg-blue-400">Địa
                             chỉ hiện tại</button>
                         <div>
-                            <input type="text" x-ref="address"
+                            <input type="text" x-ref="address" @keydown.enter.prevent=""
                                 class="mb-5 w-96 rounded-md border border-gray-300 px-4 py-2" placeholder="Tìm kiếm">
                         </div>
                     </div>
@@ -153,6 +153,7 @@
         </div>
     </div>
 </form>
+
 <script>
     document.addEventListener('alpine:init', () => {
         Alpine.data('dropdown', () => ({
