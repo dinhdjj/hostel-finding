@@ -45,16 +45,17 @@
                     <div x-cloak role="dialog" aria-labelledby="modal1_label" aria-modal="true" tabindex="0"
                         x-show="open" @click="open = false; $refs.modal1_button.focus()"
                         @click.away="open = false; $refs.modal1_button.focus()"
-                        class="fixed top-32 left-72 flex h-3/4 w-3/5 flex-col items-center justify-center gap-2 overflow-auto">
-                        <div>
+                        class="fixed inset-0 z-[99999] overflow-auto bg-white">
+                        <h3 class="text-center text-xl font-semibold text-gray-800">
                             Tất cả các ảnh
+                        </h3>
+                        <div class="flex py-4">
+                            <div class="mx-auto space-y-2 bg-white px-20 pt-10">
+                                @foreach ($hostel->getMedia() as $item)
+                                    {{ $item->img()->attributes(['class' => 'object-cover object-center rounded']) }}
+                                @endforeach
+                            </div>
                         </div>
-                        <div class="bg-white px-20 pt-10">
-                            @foreach ($hostel->getMedia() as $item)
-                                {{ $item->img()->attributes(['class' => 'object-cover object-center']) }}
-                            @endforeach
-                        </div>
-
                     </div>
                 </div>
             </div>
