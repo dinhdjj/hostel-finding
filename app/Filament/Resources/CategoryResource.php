@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\CategoryResource\Pages;
+use App\Filament\Traits\Localizable;
 use App\Models\Category;
 use Filament\Forms\Components\MarkdownEditor;
 use Filament\Forms\Components\TextInput;
@@ -16,11 +17,16 @@ use Filament\Tables\Columns\TextColumn;
 
 class CategoryResource extends Resource
 {
+    use Localizable;
+
     protected static ?string $model = Category::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-hashtag';
 
-    protected static ?string $navigationGroup = 'Related Hostel';
+    public static function getNavigationGroup(): ?string
+    {
+        return __('filament.navigation.groups.hostel');
+    }
 
     public static function form(Form $form): Form
     {
@@ -28,9 +34,11 @@ class CategoryResource extends Resource
             ->schema([
                 TextInput::make('name')
                     ->required()
-                    ->maxLength(255),
+                    ->maxLength(255)
+                    ->localizeLabel(),
                 MarkdownEditor::make('description')
-                    ->maxLength(255),
+                    ->maxLength(255)
+                    ->localizeLabel(),
             ])
         ;
     }
@@ -39,10 +47,13 @@ class CategoryResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('name'),
-                TextColumn::make('description'),
+                TextColumn::make('name')
+                    ->localizeLabel(),
+                TextColumn::make('description')
+                    ->localizeLabel(),
                 TextColumn::make('updated_at')
-                    ->getStateUsing(fn (Category $record) => $record->updated_at->diffForHumans()),
+                    ->getStateUsing(fn (Category $record) => $record->updated_at->diffForHumans())
+                    ->localizeLabel(),
             ])
             ->filters([
             ])

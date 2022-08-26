@@ -19,13 +19,13 @@ class StatsOverview extends BaseWidget
         return [
             Card::query(Visit::whereVisitorId(null), now()->subMonth(), now())
                 ->cache()
-                ->count(label: 'New visits of guests'),
+                ->count(label: __('stats.visit.count.*.guest')),
             Card::query(Visit::where('visitor_id', '!=', null), now()->subMonth(), now())
                 ->cache()
-                ->count(label: 'New visits of users'),
+                ->count(label: __('stats.visit.count.*.user')),
             Card::query($query, now()->subMonth(), now())
                 ->cache()
-                ->count(label: 'New unique IPs'),
+                ->count(label: __('stats.visit.count.ip.distinct')),
         ];
     }
 }

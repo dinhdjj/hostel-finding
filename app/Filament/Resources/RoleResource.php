@@ -6,6 +6,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\RoleResource\Pages;
 use App\Filament\Resources\RoleResource\RelationManagers\UsersRelationManager;
+use App\Filament\Traits\Localizable;
 use App\Models\Role;
 use Filament\Forms\Components\CheckboxList;
 use Filament\Forms\Components\TextInput;
@@ -19,11 +20,16 @@ use Filament\Tables\Columns\TextColumn;
 
 class RoleResource extends Resource
 {
+    use Localizable;
+
     protected static ?string $model = Role::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-user-group';
 
-    protected static ?string $navigationGroup = 'System';
+    public static function getNavigationGroup(): ?string
+    {
+        return __('filament.navigation.groups.system');
+    }
 
     public static function form(Form $form): Form
     {
@@ -31,12 +37,15 @@ class RoleResource extends Resource
             ->schema([
                 TextInput::make('name')
                     ->required()
-                    ->maxLength(125),
+                    ->maxLength(125)
+                    ->localizeLabel(),
                 TextInput::make('guard_name')
                     ->required()
-                    ->maxLength(125),
+                    ->maxLength(125)
+                    ->localizeLabel(),
                 CheckboxList::make('permissions')
-                    ->relationship('permissions', 'name'),
+                    ->relationship('permissions', 'name')
+                    ->localizeLabel(),
             ])
         ;
     }
@@ -47,13 +56,17 @@ class RoleResource extends Resource
             ->columns([
                 TextColumn::make('id')
                     ->searchable()
-                    ->sortable(),
+                    ->sortable()
+                    ->localizeLabel(),
                 TextColumn::make('name')
                     ->searchable()
-                    ->sortable(),
-                TextColumn::make('guard_name'),
+                    ->sortable()
+                    ->localizeLabel(),
+                TextColumn::make('guard_name')
+                    ->localizeLabel(),
                 TextColumn::make('updated_at')
-                    ->getStateUsing(fn (Role $record) => $record->updated_at->diffForHumans()),
+                    ->getStateUsing(fn (Role $record) => $record->updated_at->diffForHumans())
+                    ->localizeLabel(),
             ])
             ->filters([
             ])

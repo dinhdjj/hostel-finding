@@ -89,4 +89,12 @@ class Hostel extends Model implements HasMedia
             ->withResponsiveImages()
         ;
     }
+
+    protected static function booted(): void
+    {
+        static::deleting(function (self $hostel): void {
+            $hostel->comments->each->delete();
+            $hostel->votes->each->delete();
+        });
+    }
 }
