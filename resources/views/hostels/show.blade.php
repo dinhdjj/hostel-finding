@@ -28,35 +28,35 @@
         <div
             class="relative my-6 grid h-96 grid-cols-1 grid-rows-1 gap-2 overflow-hidden rounded-md shadow-sm md:grid-cols-2 md:rounded-2xl">
             <div class="h-full bg-cover bg-center">
-                {{ $hostel->getFirstMedia() }}
+                {{ $hostel->getFirstMedia()->img()->attributes(['class' => 'h-full object-cover object-center']) }}
             </div>
-            <div class="hidden h-full grid-cols-2 grid-rows-2 gap-2 md:grid">
+            <div class="relative hidden grid-cols-2 grid-rows-2 gap-2 overflow-hidden rounded-md md:grid">
                 @foreach ($hostel->getMedia() as $index => $item)
                     @if ($index > 0 && $index < 5)
-                        <div class="relative overflow-hidden bg-cover bg-center">
-                            {{ $item }}
-                        </div>
-                    @endif
-                    @if ($index == 4)
-                        <div x-data="{ open: false }"
-                            class="text-gray-500focus:outline-none absolute right-0 bottom-0 mb-2 mr-2 rounded-md bg-white">
-                            <button x-ref="modal1_button" @click="open = true"
-                                class="px-4 py-2 text-sm font-medium leading-5 text-gray-700 transition duration-150 ease-in-out">
-                                <span>Show More</span>
-                            </button>
-                            <div x-cloak role="dialog" aria-labelledby="modal1_label" aria-modal="true" tabindex="0"
-                                x-show="open" @click="open = false; $refs.modal1_button.focus()"
-                                @click.away="open = false; $refs.modal1_button.focus()"
-                                class="fixed top-0 left-0 flex h-screen w-full flex-col items-center justify-center overflow-auto">
-                                @foreach ($hostel->getMedia() as $item)
-                                    <div class="relative bg-center py-1">
-                                        {{ $item }}
-                                    </div>
-                                @endforeach
-                            </div>
-                        </div>
+                        {{ $item->img()->attributes(['class' => 'object-cover object-center']) }}
                     @endif
                 @endforeach
+                <div x-data="{ open: false }"
+                    class="text-gray-500focus:outline-none absolute right-2 bottom-1 mb-2 mr-2 rounded-md bg-white">
+                    <button x-ref="modal1_button" @click="open = true"
+                        class="px-4 py-2 text-sm font-medium leading-5 text-gray-700 transition duration-150 ease-in-out">
+                        <span>Show More</span>
+                    </button>
+                    <div x-cloak role="dialog" aria-labelledby="modal1_label" aria-modal="true" tabindex="0"
+                        x-show="open" @click="open = false; $refs.modal1_button.focus()"
+                        @click.away="open = false; $refs.modal1_button.focus()"
+                        class="fixed top-32 left-72 flex h-3/4 w-3/5 flex-col items-center justify-center gap-2 overflow-auto">
+                        <div>
+                            Tất cả các ảnh
+                        </div>
+                        <div class="bg-white px-20 pt-10">
+                            @foreach ($hostel->getMedia() as $item)
+                                {{ $item->img()->attributes(['class' => 'object-cover object-center']) }}
+                            @endforeach
+                        </div>
+
+                    </div>
+                </div>
             </div>
         </div>
         {{-- info --}}

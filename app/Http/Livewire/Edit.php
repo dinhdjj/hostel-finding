@@ -100,7 +100,7 @@ class Edit extends Component implements HasForms
         ]);
     }
 
-    protected function getFormModel(): string
+    protected function getFormModel()
     {
         return $this->hostel;
     }
