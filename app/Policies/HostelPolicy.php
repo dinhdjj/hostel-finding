@@ -18,6 +18,11 @@ class HostelPolicy
         return $user->hasPermissionTo('hostels.view.any');
     }
 
+    public function viewOwn(User $user): Response|bool
+    {
+        return true;
+    }
+
     public function view(User $user, Hostel $hostel): Response|bool
     {
         return $this->viewAny($user);
