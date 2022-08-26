@@ -9,6 +9,7 @@ import NotificationsAlpinePlugin from '../../vendor/filament/notifications/dist/
 Alpine.plugin(NotificationsAlpinePlugin);
 Alpine.plugin(Focus);
 Alpine.plugin(FormsAlpinePlugin);
+window.useGoogleMaps = useGoogleMaps;
 window.Alpine = Alpine;
 window.useGoogleMaps = useGoogleMaps;
 window.createHtmlMapMarker = createHtmlMapMarker;

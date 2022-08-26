@@ -6,6 +6,7 @@ import laravel, { refreshPaths } from 'laravel-vite-plugin';export default defin
                 'resources/css/app.css',
                 'resources/js/app.js',
                 'resources/css/filament.css',
+                'resources/css/places-autocomplete-dropdown.css',
             ],
             refresh: [
                 ...refreshPaths,
