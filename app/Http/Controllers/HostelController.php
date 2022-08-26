@@ -12,11 +12,6 @@ class HostelController extends Controller
     public function show(Hostel $hostel): View
     {
         $hostel->loadAggregate('votes', 'score', 'avg')->loadCount('votes', 'comments');
-        $hostel->comments->load('owner', 'parent', 'children');
-        $comments = $hostel->comments;
-        foreach ($comments as $comment) {
-            $comment->children->load('owner', 'parent', 'children');
-        }
 
         return view('hostels.show', [
             'hostel' => $hostel,

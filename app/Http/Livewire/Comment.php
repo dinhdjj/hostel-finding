@@ -66,10 +66,12 @@ class Comment extends Component
 
     public function render(): View
     {
-        $comments = ModelsComment::where('hostel_id', $this->hostel->id)->where('parent_id', null)->orderBy('created_at', 'desc')->with('owner', 'parent', 'children')->paginate(6);
-        foreach ($comments as $comment) {
-            $comment->children->load('owner', 'parent', 'children');
-        }
+        $comments = ModelsComment::with('owner', 'children.owner')
+            ->where('hostel_id', $this->hostel->id)
+            ->where('parent_id', null)
+            ->orderBy('created_at', 'desc')
+            ->paginate(6)
+        ;
 
         return view('livewire.comment', [
             'comments' => $comments,
