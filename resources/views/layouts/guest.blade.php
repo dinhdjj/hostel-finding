@@ -24,7 +24,7 @@
         }
     </style>
     @vite(['resources/css/app.css', 'resources/css/places-autocomplete-dropdown.css', 'resources/js/app.js'])
-    
+
     @livewireStyles
 </head>
 
