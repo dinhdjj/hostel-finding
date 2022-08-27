@@ -5,9 +5,14 @@
         @if ($hostels->total() > 0)
             <div class="flex justify-between p-4">
                 @if ($hostels->total() < 1000)
-                    <span class="font-bold text-gray-800"> {{ $hostels->total() }} nhà trọ gần đây </span>
+                    <span wire:loading.remove class="font-bold text-gray-800"> {{ $hostels->total() }} nhà trọ gần đây
+                    </span>
+                    <div wire:loading.block class="h-5 w-36 rounded-xl bg-slate-200">
+                    </div>
                 @else
-                    <span class="font-bold text-gray-800"> Hơn 1,000 nhà trọ gần đây </span>
+                    <span wire:loading.remove class="font-bold text-gray-800"> Hơn 1,000 nhà trọ gần đây </span>
+                    <div wire:loading.block class="h-5 w-36 rounded-xl bg-slate-200">
+                    </div>
                 @endif
                 <button class="flex items-center gap-1 rounded-lg border p-2 text-center">
                     <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="presentation"
@@ -24,7 +29,10 @@
 
             <div class="grid grid-cols-2 gap-y-6 gap-x-4 p-2">
                 @foreach ($hostels as $hostel)
-                    <x-hostel.card :hostel="$hostel" />
+                    <x-hostel.card :hostel="$hostel" wire:loading.remove />
+                    <div wire:loading.block>
+                        <x-hostel.pulse-card />
+                    </div>
                 @endforeach
             </div>
 
@@ -33,12 +41,26 @@
             </div>
         @else
             <div class="py-12 px-6">
-                <h2 class="text-2xl font-bold text-gray-800">Không tìm thầy nhà trọ ở khu vực này</h2>
-                <p class="mt-3 text-gray-600">Bạn hãy thử tìm ở một khu vực rộng hơn, hoặc một khu vực khác.</p>
+                <h2 wire:loading.remove class="text-2xl font-bold text-gray-800">
+                    Không tìm thầy nhà trọ ở khu vực này
+                </h2>
+                <div wire:loading.block class="h-8 w-80 rounded-xl bg-slate-200">
+                </div>
 
-                <button wire:click="showNearestHostels" class="mt-6 rounded-lg border-2 px-3 py-3 shadow">
-                    <span class="text-sm font-bold">Hiển thị nhà trọ gần nhất</span>
-                </button>
+                <p wire:loading.remove class="mt-3 text-gray-600">
+                    Bạn hãy thử tìm ở một khu vực rộng hơn, hoặc một khu
+                    vực khác.
+                </p>
+                <div wire:loading.block class="mt-3 h-5 w-96 rounded-xl bg-slate-200">
+                </div>
+
+                <div wire:loading.remove>
+                    <button wire:click="showNearestHostels" class="mt-6 rounded-lg border-2 px-3 py-3 shadow">
+                        <span class="text-sm font-bold">Hiển thị nhà trọ gần nhất</span>
+                    </button>
+                </div>
+                <div wire:loading.block class="mt-6 h-[52px] w-[191px] rounded-xl bg-slate-200">
+                </div>
             </div>
         @endif
     </div>
