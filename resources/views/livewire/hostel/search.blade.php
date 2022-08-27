@@ -22,13 +22,15 @@
                 </button>
             </div>
 
-            <div class="grid grid-cols-2 gap-3 p-2">
+            <div class="grid grid-cols-2 gap-y-6 gap-x-4 p-2">
                 @foreach ($hostels as $hostel)
                     <x-hostel.card :hostel="$hostel" />
                 @endforeach
             </div>
 
-            {{ $hostels->links('paginations.centered-simple', ['livewire' => true]) }}
+            <div class="py-6">
+                {{ $hostels->links('paginations.centered-simple', ['livewire' => true]) }}
+            </div>
         @else
             <div class="py-12 px-6">
                 <h2 class="text-2xl font-bold text-gray-800">Không tìm thầy nhà trọ ở khu vực này</h2>
