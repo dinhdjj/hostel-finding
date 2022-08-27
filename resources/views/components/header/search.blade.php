@@ -133,10 +133,17 @@
                         }
                     }
 
+                    const north = lat + 0.015;
+                    const south = lat - 0.015;
+                    const east = lng + 0.015;
+                    const west = lng - 0.015;
+
                     window.location.href = @json(route('hostels.search')) +
                         '?address=' + address +
-                        '&latitude=' + lat +
-                        '&longitude=' + lng;
+                        '&north=' + north +
+                        '&south=' + south +
+                        '&east=' + east +
+                        '&west=' + west;
                 }
             }))
         })

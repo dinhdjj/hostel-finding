@@ -12,8 +12,11 @@ class HostelSearchController extends Controller
     public function __invoke(HostelSearchRequest $request): View
     {
         return view('hostels.search', [
-            'latitude' => (float) $request->latitude,
-            'longitude' => (float) $request->longitude,
+            'address' => $request->input('address'),
+            'north' => (float) $request->input('north'),
+            'south' => (float) $request->input('south'),
+            'west' => (float) $request->input('west'),
+            'east' => (float) $request->input('east'),
         ]);
     }
 }

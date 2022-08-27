@@ -24,9 +24,11 @@ class HostelSearchRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'latitude' => ['required', 'numeric'],
-            'longitude' => ['required', 'numeric'],
             'address' => ['string'],
+            'north' => ['required', 'numeric'],
+            'south' => ['required', 'numeric'],
+            'west' => ['required', 'numeric'],
+            'east' => ['required', 'numeric'],
         ];
     }
 }

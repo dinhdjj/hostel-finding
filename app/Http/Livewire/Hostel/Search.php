@@ -12,21 +12,25 @@ class Search extends Component
 {
     use WithPagination;
 
-    public float $south;
-    public float $north;
-    public float $west;
-    public float $east;
-    public array $hostelsData;
+    public float $north = 0;
+    public float $south = 0;
+    public float $west = 0;
+    public float $east = 0;
+    public array $hostelsData = [];
 
-    public function mount(float $latitude, float $longitude): void
+    protected $queryString = [
+        'north',
+        'south',
+        'west',
+        'east',
+    ];
+
+    public function mount(float $north, float $south, float $west, float $east): void
     {
-        $this->south = $latitude - 0.01;
-        $this->north = $latitude + 0.01;
-        $this->west = $longitude - 0.01;
-        $this->east = $longitude + 0.01;
+        $this->updateBounds($north, $south, $west, $east);
     }
 
-    public function updateBounds($north, $south, $west, $east): void
+    public function updateBounds(float $north, float $south, float $west, float $east): void
     {
         $this->south = $south;
         $this->north = $north;
@@ -52,8 +56,6 @@ class Search extends Component
         ;
 
         $this->hostelsData = $hostels->toArray()['data'];
-
-        $this->emitSelf('update-hostels');
 
         return view('livewire.hostel.search', [
             'hostels' => $hostels,
