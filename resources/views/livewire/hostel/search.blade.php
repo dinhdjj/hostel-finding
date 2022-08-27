@@ -2,28 +2,43 @@
 
     {{-- hostels --}}
     <div class="relative col-span-5 overflow-auto bg-white px-2">
-        <div class="flex justify-between p-4">
-            <span class="text-sm font-medium">Over 1,000 stays</span>
-            <button class="flex items-center gap-1 rounded-lg border p-2 text-center">
-                <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="presentation"
-                    focusable="false" style="display: block; height: 16px; width: 16px; fill: currentcolor;">
-                    <path
-                        d="M5 8c1.306 0 2.418.835 2.83 2H14v2H7.829A3.001 3.001 0 1 1 5 8zm0 2a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm6-8a3 3 0 1 1-2.829 4H2V4h6.17A3.001 3.001 0 0 1 11 2zm0 2a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"
-                        data-selected="true" data-label-id="0" data-metatip="true"></path>
-                </svg>
-                <span class="text-sm font-medium">
-                    Filters
-                </span>
-            </button>
-        </div>
+        @if ($hostels->total() > 0)
+            <div class="flex justify-between p-4">
+                @if ($hostels->total() < 1000)
+                    <span class="font-bold text-gray-800"> {{ $hostels->total() }} nhà trọ gần đây </span>
+                @else
+                    <span class="font-bold text-gray-800"> Hơn 1,000 nhà trọ gần đây </span>
+                @endif
+                <button class="flex items-center gap-1 rounded-lg border p-2 text-center">
+                    <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="presentation"
+                        focusable="false" style="display: block; height: 16px; width: 16px; fill: currentcolor;">
+                        <path
+                            d="M5 8c1.306 0 2.418.835 2.83 2H14v2H7.829A3.001 3.001 0 1 1 5 8zm0 2a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm6-8a3 3 0 1 1-2.829 4H2V4h6.17A3.001 3.001 0 0 1 11 2zm0 2a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"
+                            data-selected="true" data-label-id="0" data-metatip="true"></path>
+                    </svg>
+                    <span class="text-sm font-medium">
+                        Filters
+                    </span>
+                </button>
+            </div>
 
-        <div class="grid grid-cols-2 gap-3 p-2">
-            @foreach ($hostels as $hostel)
-                <x-hostel.card :hostel="$hostel" />
-            @endforeach
-        </div>
+            <div class="grid grid-cols-2 gap-3 p-2">
+                @foreach ($hostels as $hostel)
+                    <x-hostel.card :hostel="$hostel" />
+                @endforeach
+            </div>
 
-        {{ $hostels->links('paginations.centered-simple', ['livewire' => true]) }}
+            {{ $hostels->links('paginations.centered-simple', ['livewire' => true]) }}
+        @else
+            <div class="py-12 px-6">
+                <h2 class="text-2xl font-bold text-gray-800">Không tìm thầy nhà trọ ở khu vực này</h2>
+                <p class="mt-3 text-gray-600">Bạn hãy thử tìm ở một khu vực rộng hơn, hoặc một khu vực khác.</p>
+
+                <button wire:click="showNearestHostels" class="mt-6 rounded-lg border-2 px-3 py-3 shadow">
+                    <span class="text-sm font-bold">Hiển thị nhà trọ gần nhất</span>
+                </button>
+            </div>
+        @endif
     </div>
 
     {{-- maps --}}

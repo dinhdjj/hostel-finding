@@ -34,6 +34,13 @@ class Search extends Component
         $this->east = $east;
     }
 
+    /**
+     * TODO: show nearest hostels.
+     */
+    public function showNearestHostels(): void
+    {
+    }
+
     public function render()
     {
         $hostels = Hostel::with('categories')
