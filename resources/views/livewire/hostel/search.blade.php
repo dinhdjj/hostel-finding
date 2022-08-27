@@ -32,7 +32,9 @@
 
             <div class="grid grid-cols-2 gap-y-6 gap-x-4 p-2">
                 @foreach ($hostels as $hostel)
-                    <x-hostel.card :hostel="$hostel" wire:loading.remove />
+                    <x-hostel.card :hostel="$hostel" wire:loading.remove
+                        @mouseover="mouseoverHostelCard({{ $hostel->id }}, $event)"
+                        @mouseout="mouseoutHostelCard({{ $hostel->id }}, $event)" />
                     <div wire:loading.block>
                         <x-hostel.pulse-card />
                     </div>
@@ -152,12 +154,9 @@
                             map: this.map,
                             html: /*html*/ `
                                 <div class="relative">
-                                    <button class="rounded-full border bg-white py-1 px-2 font-extrabold text-gray-800 shadow text-sm">
+                                    <a href="{{ url('') }}/hostels/${hostel.slug}" id="hostel-on-map-${hostel.id}" class="rounded-full border bg-white py-1 px-2 font-extrabold text-gray-800 shadow text-sm hover:bg-gray-900 hover:text-white">
                                         ${this.formatNumber(hostel.monthly_price)}₫
-                                    </button>
-                                    <div is-popup class="hidden absolute bottom-0 right-0">
-                                        xin chao ${hostel.title}
-                                    </div>
+                                    </a>
                                 </div>
                             `,
                         });
@@ -179,6 +178,20 @@
 
                     this.notReactOnNextBoundsChange = true;
                     this.map.fitBounds(bounds);
+                },
+                mouseoverHostelCard(id, e) {
+                    const el = document.getElementById(`hostel-on-map-${id}`);
+                    if (!el) return;
+
+                    el.classList.add('!bg-gray-900');
+                    el.classList.add('!text-white');
+                },
+                mouseoutHostelCard(id, e) {
+                    const el = document.getElementById(`hostel-on-map-${id}`);
+                    if (!el) return;
+
+                    el.classList.remove('!bg-gray-900');
+                    el.classList.remove('!text-white');
                 },
                 formatNumber(number) {
                     return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
