@@ -1,5 +1,7 @@
 <x-guest-layout>
 
+    <x-header.search class="mb-4 shadow" />
+
     <x-container>
         <h2 class="py-4 text-2xl font-semibold tracking-tight text-gray-700 sm:text-3xl sm:tracking-tight">
             Nhà trọ nổi bật
@@ -16,4 +18,6 @@
         </div>
 
     </x-container>
+
+    <x-footer.simple class="mt-12" />
 </x-guest-layout>
