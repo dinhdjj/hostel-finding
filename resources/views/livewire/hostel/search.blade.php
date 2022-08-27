@@ -89,16 +89,13 @@
                 map: null,
                 markers: [],
                 hostels: @entangle('hostelsData'),
+                north: @entangle('north'),
+                south: @entangle('south'),
+                west: @entangle('west'),
+                east: @entangle('east'),
+                notReactOnNextBoundsChange: false,
                 async init() {
-                    const south = @json($south);
-                    const north = @json($north);
-                    const west = @json($west);
-                    const east = @json($east);
                     this.google = await window.useGoogleMaps();
-                    const bounds = new this.google.maps.LatLngBounds(
-                        new this.google.maps.LatLng(south, west),
-                        new this.google.maps.LatLng(north, east),
-                    );
 
                     this.map = new this.google.maps.Map(this.$refs.map, {
                         zoom: 14,
@@ -106,11 +103,14 @@
                         maxZoom: 19,
                     });
 
-                    this.map.fitBounds(bounds);
-
                     this.updateMarkersOnMap();
                     this.$watch('hostels', () => {
                         this.updateMarkersOnMap();
+                    });
+
+                    this.fitBoundsInMap();
+                    this.$wire.on('update-bounds', () => {
+                        this.fitBoundsInMap();
                     });
 
                     this.listenOnBoundsChange();
@@ -125,10 +125,9 @@
                         this.$wire.updateBounds(north, south, west, east);
                     }, 1000);
 
-                    let firstly = true;
                     this.map.addListener('bounds_changed', () => {
-                        if (firstly) {
-                            firstly = false;
+                        if (this.notReactOnNextBoundsChange) {
+                            this.notReactOnNextBoundsChange = false;
                             return;
                         }
 
@@ -167,6 +166,15 @@
 
                         this.markers.push(marker);
                     })
+                },
+                fitBoundsInMap() {
+                    const bounds = new this.google.maps.LatLngBounds(
+                        new this.google.maps.LatLng(this.south, this.west),
+                        new this.google.maps.LatLng(this.north, this.east),
+                    );
+
+                    this.notReactOnNextBoundsChange = true;
+                    this.map.fitBounds(bounds);
                 },
                 formatNumber(number) {
                     return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");

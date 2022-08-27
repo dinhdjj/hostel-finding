@@ -48,6 +48,16 @@ class Search extends Component
      */
     public function showNearestHostels(): void
     {
+        $nearestHostel = Hostel::selectRaw('*, ( 6371 * acos( cos( radians(?) ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians(?) ) + sin( radians(?) ) * sin( radians( latitude ) ) ) ) AS distance', [$this->north, $this->west, $this->south])
+            ->orderBy('distance')
+            ->first(1)
+        ;
+
+        if (! $nearestHostel) {
+            return;
+        }
+
+        $this->fitPoint($nearestHostel->latitude, $nearestHostel->longitude);
     }
 
     public function render()
@@ -65,5 +75,22 @@ class Search extends Component
         return view('livewire.hostel.search', [
             'hostels' => $hostels,
         ]);
+    }
+
+    protected function fitPoint(float $latitude, float $longitude): void
+    {
+        if ($latitude > $this->north) {
+            $this->north = $latitude + 0.001;
+        } elseif ($latitude < $this->south) {
+            $this->south = $latitude - 0.001;
+        }
+
+        if ($longitude > $this->east) {
+            $this->east = $longitude + 0.001;
+        } elseif ($longitude < $this->west) {
+            $this->west = $longitude - 0.001;
+        }
+
+        $this->emitSelf('update-bounds');
     }
 }
