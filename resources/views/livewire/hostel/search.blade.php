@@ -154,7 +154,7 @@
                             map: this.map,
                             html: /*html*/ `
                                 <div class="relative">
-                                    <a href="{{ url('') }}/hostels/${hostel.slug}" id="hostel-on-map-${hostel.id}" class="rounded-full border bg-white py-1 px-2 font-extrabold text-gray-800 shadow text-sm hover:bg-gray-900 hover:text-white">
+                                    <a href="{{ url('') }}/hostels/${hostel.slug}" target="_blank" id="hostel-on-map-${hostel.id}" class="rounded-full border bg-white py-1 px-2 font-extrabold text-gray-800 shadow text-sm hover:bg-gray-900 hover:text-white">
                                         ${this.formatNumber(hostel.monthly_price)}₫
                                     </a>
                                 </div>
