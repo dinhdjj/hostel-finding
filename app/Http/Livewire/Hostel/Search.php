@@ -27,7 +27,10 @@ class Search extends Component
 
     public function mount(float $north, float $south, float $west, float $east): void
     {
-        $this->updateBounds($north, $south, $west, $east);
+        $this->south = $south;
+        $this->north = $north;
+        $this->west = $west;
+        $this->east = $east;
     }
 
     public function updateBounds(float $north, float $south, float $west, float $east): void
@@ -36,6 +39,8 @@ class Search extends Component
         $this->north = $north;
         $this->west = $west;
         $this->east = $east;
+
+        $this->resetPage();
     }
 
     /**
