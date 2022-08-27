@@ -5,13 +5,16 @@
         @if ($hostels->total() > 0)
             <div class="flex justify-between p-4">
                 @if ($hostels->total() < 1000)
-                    <span wire:loading.remove class="font-bold text-gray-800"> {{ $hostels->total() }} nhà trọ gần đây
+                    <span wire:loading.remove class="font-bold text-gray-800"> {{ $hostels->total() }}
+                        nhà trọ ở khu vực này
                     </span>
-                    <div wire:loading.block class="h-5 w-36 rounded-xl bg-slate-200">
+                    <div wire:loading.block class="h-5 w-40 rounded-xl bg-slate-200">
                     </div>
                 @else
-                    <span wire:loading.remove class="font-bold text-gray-800"> Hơn 1,000 nhà trọ gần đây </span>
-                    <div wire:loading.block class="h-5 w-36 rounded-xl bg-slate-200">
+                    <span wire:loading.remove class="font-bold text-gray-800">
+                        Hơn 1,000 nhà trọ ở khu vực này
+                    </span>
+                    <div wire:loading.block class="h-5 w-40 rounded-xl bg-slate-200">
                     </div>
                 @endif
                 <button class="flex items-center gap-1 rounded-lg border p-2 text-center">
@@ -55,11 +58,12 @@
                 </div>
 
                 <div wire:loading.remove>
-                    <button wire:click="showNearestHostels" class="mt-6 rounded-lg border-2 px-3 py-3 shadow">
-                        <span class="text-sm font-bold">Hiển thị nhà trọ gần nhất</span>
+                    <button wire:click="showNearestHostels"
+                        class="mt-6 rounded-lg border-2 px-3 py-3 shadow transition ease-in-out active:translate-y-1">
+                        <span class="text-sm font-bold">Tìm nhà trọ gần nhất</span>
                     </button>
                 </div>
-                <div wire:loading.block class="mt-6 h-[52px] w-[191px] rounded-xl bg-slate-200">
+                <div wire:loading.block class="mt-6 h-[52px] w-[165px] rounded-xl bg-slate-200">
                 </div>
             </div>
         @endif
