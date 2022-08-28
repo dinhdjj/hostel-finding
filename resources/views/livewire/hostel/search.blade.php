@@ -17,17 +17,7 @@
                     <div wire:loading.block class="h-5 w-40 rounded-xl bg-slate-200">
                     </div>
                 @endif
-                <button class="flex items-center gap-1 rounded-lg border p-2 text-center">
-                    <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="presentation"
-                        focusable="false" style="display: block; height: 16px; width: 16px; fill: currentcolor;">
-                        <path
-                            d="M5 8c1.306 0 2.418.835 2.83 2H14v2H7.829A3.001 3.001 0 1 1 5 8zm0 2a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm6-8a3 3 0 1 1-2.829 4H2V4h6.17A3.001 3.001 0 0 1 11 2zm0 2a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"
-                            data-selected="true" data-label-id="0" data-metatip="true"></path>
-                    </svg>
-                    <span class="text-sm font-medium">
-                        Filters
-                    </span>
-                </button>
+                @include('livewire.hostel.partials.filter')
             </div>
 
             <div class="grid grid-cols-2 gap-y-6 gap-x-4 p-2">

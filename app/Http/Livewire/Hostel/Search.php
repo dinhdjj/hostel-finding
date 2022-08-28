@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Http\Livewire\Hostel;
 
+use App\Models\Amenity;
+use App\Models\Category;
 use App\Models\Hostel;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -70,10 +72,16 @@ class Search extends Component
             ->paginate(12)
         ;
 
+        $categories = Category::all();
+
+        $amenities = Amenity::all();
+
         $this->hostelsData = $hostels->toArray()['data'];
 
         return view('livewire.hostel.search', [
             'hostels' => $hostels,
+            'categories' => $categories,
+            'amenities' => $amenities,
         ]);
     }
 
