@@ -1,8 +1,8 @@
 <div x-data="livewire_hostel_search" class="grid h-full flex-1 grid-cols-12 overflow-auto">
 
     {{-- hostels --}}
-    <div class="relative col-span-5 overflow-auto bg-white px-2">
-        @if ($hostels->total() > 0)
+    <div class="col-span-5 overflow-auto bg-white px-2">
+        <div @class(['hidden' => $hostels->total() === 0])>
             <div class="flex justify-between p-4">
                 @if ($hostels->total() < 1000)
                     <span wire:loading.remove class="font-bold text-gray-800"> {{ $hostels->total() }}
@@ -34,31 +34,30 @@
             <div class="py-6">
                 {{ $hostels->links('paginations.centered-simple', ['livewire' => true]) }}
             </div>
-        @else
-            <div class="py-12 px-6">
-                <h2 wire:loading.remove class="text-2xl font-bold text-gray-800">
-                    Không tìm thầy nhà trọ ở khu vực này
-                </h2>
-                <div wire:loading.block class="h-8 w-80 rounded-xl bg-slate-200">
-                </div>
-
-                <p wire:loading.remove class="mt-3 text-gray-600">
-                    Bạn hãy thử tìm ở một khu vực rộng hơn, hoặc một khu
-                    vực khác.
-                </p>
-                <div wire:loading.block class="mt-3 h-5 w-96 rounded-xl bg-slate-200">
-                </div>
-
-                <div wire:loading.remove>
-                    <button wire:click="showNearestHostels"
-                        class="mt-6 rounded-lg border-2 px-3 py-3 shadow transition ease-in-out active:translate-y-1">
-                        <span class="text-sm font-bold">Tìm nhà trọ gần nhất</span>
-                    </button>
-                </div>
-                <div wire:loading.block class="mt-6 h-[52px] w-[165px] rounded-xl bg-slate-200">
-                </div>
+        </div>
+        <div @class(['py-12 px-6', 'hidden' => $hostels->total() !== 0])>
+            <h2 wire:loading.remove class="text-2xl font-bold text-gray-800">
+                Không tìm thầy nhà trọ ở khu vực này
+            </h2>
+            <div wire:loading.block class="h-8 w-80 rounded-xl bg-slate-200">
             </div>
-        @endif
+
+            <p wire:loading.remove class="mt-3 text-gray-600">
+                Bạn hãy thử tìm ở một khu vực rộng hơn, hoặc một khu
+                vực khác.
+            </p>
+            <div wire:loading.block class="mt-3 h-5 w-96 rounded-xl bg-slate-200">
+            </div>
+
+            <div wire:loading.remove>
+                <button wire:click="showNearestHostels"
+                    class="mt-6 rounded-lg border-2 px-3 py-3 shadow transition ease-in-out active:translate-y-1">
+                    <span class="text-sm font-bold">Tìm nhà trọ gần nhất</span>
+                </button>
+            </div>
+            <div wire:loading.block class="mt-6 h-[52px] w-[165px] rounded-xl bg-slate-200">
+            </div>
+        </div>
     </div>
 
     {{-- maps --}}
