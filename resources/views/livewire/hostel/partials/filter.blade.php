@@ -37,6 +37,10 @@
                     {{-- filters --}}
                     <div class="table-row h-full">
                         <div class="h-full space-y-8 overflow-auto p-6">
+                            {{-- price --}}
+                            @include('livewire.hostel.partials.filter-price')
+
+                            {{-- categories --}}
                             <div class="space-y-2">
                                 <h3 class="text-2xl font-semibold text-gray-800">Danh mục</h3>
                                 <div class="flex flex-wrap gap-3">
@@ -55,6 +59,7 @@
                                 </div>
                             </div>
 
+                            {{-- amenities --}}
                             <div class="space-y-2">
                                 <h3 class="text-2xl font-semibold text-gray-800">Tiện ích</h3>
                                 <div class="flex flex-wrap gap-3">
@@ -85,7 +90,7 @@
 
                             <button type="button"
                                 class="-translate-x-2 rounded-md bg-gray-800 px-4 py-2 hover:bg-gray-900"
-                                @click="filter">
+                                @click="filter();show=false;">
                                 <span class="text-lg font-semibold text-white">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke-width="1.5" stroke="currentColor" class="h-6 w-6">
@@ -100,15 +105,18 @@
             </div>
         </div>
     </template>
+</div>
 
+@push('scripts')
     <script>
         document.addEventListener('alpine:init', () => {
             Alpine.data('livewire_hostel_partials_filter', () => ({
-                show: true,
-                minPrice: 0,
+                show: false,
+                minPrice: null,
                 maxPrice: null,
                 selectedCategoryIds: [],
                 selectedAmenityIds: [],
+
                 onClickCategory(cateId) {
                     if (this.selectedCategoryIds.includes(cateId)) {
                         this.selectedCategoryIds = this.selectedCategoryIds.filter(id => id != cateId);
@@ -116,6 +124,7 @@
                         this.selectedCategoryIds.push(cateId);
                     }
                 },
+
                 onClickAmenity(amenityId) {
                     if (this.selectedAmenityIds.includes(amenityId)) {
                         this.selectedAmenityIds = this.selectedAmenityIds.filter(id => id != amenityId);
@@ -123,16 +132,22 @@
                         this.selectedAmenityIds.push(amenityId);
                     }
                 },
+
                 refresh() {
-                    this.minPrice = 0;
+                    this.minPrice = null;
                     this.maxPrice = null;
                     this.selectedCategoryIds = [];
                     this.selectedAmenityIds = [];
                 },
+
                 filter() {
-                    //
+                    @this.filter(
+                        [this.minPrice, this.maxPrice],
+                        this.selectedCategoryIds,
+                        this.selectedAmenityIds
+                    );
                 },
             }));
         });
     </script>
-</div>
+@endpush
