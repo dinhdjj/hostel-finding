@@ -23,7 +23,6 @@ Route::get('', HostelIndexController::class)
     ->name('hostels.index')
 ;
 
-// TODO: add a route for the hostel search page
 Route::get('hostels/search', HostelSearchController::class)
     ->name('hostels.search')
 ;
