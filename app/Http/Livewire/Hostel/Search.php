@@ -8,6 +8,7 @@ use App\Models\Amenity;
 use App\Models\Category;
 use App\Models\Hostel;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\View\View;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -28,6 +29,9 @@ class Search extends Component
     public int $largestPrice = 0;
     public int $smallestPrice = 0;
 
+    /**
+     * @var (string|array)[]
+     */
     protected $queryString = [
         'north',
         'south',
@@ -60,10 +64,11 @@ class Search extends Component
      */
     public function showNearestHostels(): void
     {
+        /** @var ?Hostel */
         $nearestHostel = $this->getBaseHostelQuery()
             ->selectRaw('*, ( 6371 * acos( cos( radians(?) ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians(?) ) + sin( radians(?) ) * sin( radians( latitude ) ) ) ) AS distance', [$this->north, $this->west, $this->south])
             ->orderBy('distance')
-            ->first(1)
+            ->first()
         ;
 
         if (! $nearestHostel) {
@@ -81,7 +86,7 @@ class Search extends Component
         $this->amenity_ids = $amenityIds;
     }
 
-    public function render()
+    public function render(): View
     {
         $hostels = $this->getBaseHostelQuery()
             ->where('latitude', '>=', $this->south)
