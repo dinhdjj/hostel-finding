@@ -1,4 +1,4 @@
-<div x-data="livewire_hostel_partials_filter">
+<div x-data="livewire_hostel_partials_filter" wire:ignore>
     {{-- action to show --}}
     <button class="flex items-center gap-1 rounded-lg border p-2 text-center hover:shadow" @click="show = !show">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
@@ -90,7 +90,7 @@
 
                             <button type="button"
                                 class="-translate-x-2 rounded-md bg-gray-800 px-4 py-2 hover:bg-gray-900"
-                                @click="filter();show=false;">
+                                @click="filter()">
                                 <span class="text-lg font-semibold text-white">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke-width="1.5" stroke="currentColor" class="h-6 w-6">
@@ -112,10 +112,10 @@
         document.addEventListener('alpine:init', () => {
             Alpine.data('livewire_hostel_partials_filter', () => ({
                 show: false,
-                minPrice: null,
-                maxPrice: null,
-                selectedCategoryIds: [],
-                selectedAmenityIds: [],
+                minPrice: @json($min_price),
+                maxPrice: @json($max_price),
+                selectedCategoryIds: @json(array_map(fn($value) => (int) $value, $category_ids)),
+                selectedAmenityIds: @json(array_map(fn($value) => (int) $value, $amenity_ids)),
 
                 onClickCategory(cateId) {
                     if (this.selectedCategoryIds.includes(cateId)) {
@@ -146,6 +146,8 @@
                         this.selectedCategoryIds,
                         this.selectedAmenityIds
                     );
+
+                    this.show = false;
                 },
             }));
         });

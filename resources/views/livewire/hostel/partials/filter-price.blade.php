@@ -3,16 +3,15 @@
 
     <div class="flex items-center justify-between gap-3">
         <div class="flex-1">
-            <input x-ref="minPrice" x-mask:dynamic="'₫' + $money($input)" type="text" :value="min"
-                @input="onInputMinPrice" @blur="onBlurMinPrice" class="w-full rounded border border-gray-200 text-center">
+            <input x-ref="minPrice" x-mask:dynamic="'₫' + $money($input)" type="text" @input="onInputMinPrice"
+                @blur="onBlurMinPrice" class="w-full rounded border border-gray-200 text-center">
         </div>
 
         <span> – </span>
 
         <div class="flex-1">
-            <input x-ref="maxPrice" x-mask:dynamic="'₫' + $money($input)" type="text" :value="max"
-                @input="onInputMaxPrice" @blur="onBlurMaxPrice"
-                class="w-full rounded border border-gray-200 text-center">
+            <input x-ref="maxPrice" x-mask:dynamic="'₫' + $money($input)" type="text" @input="onInputMaxPrice"
+                @blur="onBlurMaxPrice" class="w-full rounded border border-gray-200 text-center">
         </div>
     </div>
 
@@ -27,11 +26,14 @@
                 requiredDistance: 1000000,
 
                 init() {
+                    this.setLocalMinPrice(this.minPrice ?? this.min)
                     this.$watch('minPrice', (value) => {
                         if (value === null) {
                             this.setLocalMinPrice(this.min);
                         }
                     });
+
+                    this.setLocalMaxPrice(this.maxPrice ?? this.max)
                     this.$watch('maxPrice', (value) => {
                         if (value === null) {
                             this.setLocalMaxPrice(this.max);
