@@ -1,7 +1,7 @@
-<div x-data="livewire_hostel_search" class="grid h-full flex-1 grid-cols-12 overflow-auto">
+<div x-data="livewire_hostel_search" class="flex h-full flex-1 flex-col-reverse overflow-auto md:grid md:grid-cols-12">
 
     {{-- hostels --}}
-    <div class="col-span-5 overflow-auto bg-white px-2">
+    <div class="bg-white px-2 md:col-span-5 md:overflow-auto">
         <div @class(['hidden' => $hostels->total() === 0])>
             <div class="flex justify-between p-4">
                 @if ($hostels->total() < 1000)
@@ -20,7 +20,7 @@
                 @include('livewire.hostel.partials.filter')
             </div>
 
-            <div class="grid grid-cols-2 gap-y-6 gap-x-4 p-2">
+            <div class="grid grid-cols-1 gap-y-6 gap-x-4 p-2 lg:grid-cols-2">
                 @foreach ($hostels as $hostel)
                     <x-hostel.card :hostel="$hostel" wire:loading.remove
                         @mouseover="mouseoverHostelCard({{ $hostel->id }}, $event)"
@@ -61,7 +61,7 @@
     </div>
 
     {{-- maps --}}
-    <div class="relative col-span-7">
+    <div class="relative h-96 w-full md:col-span-7 md:h-auto md:w-auto">
         <div x-ref="map" wire:ignore class="h-full"></div>
 
         <div wire:loading

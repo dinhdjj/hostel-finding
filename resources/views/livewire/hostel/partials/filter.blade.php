@@ -13,8 +13,9 @@
 
     <template x-teleport="body">
         <div x-cloak x-show="show"
-            class="fixed inset-0 flex flex-col items-center justify-center bg-gray-800 bg-opacity-25 p-12">
-            <div x-show="show" x-transition class="h-full max-w-2xl overflow-hidden rounded-md bg-white shadow-md"
+            class="fixed inset-0 flex flex-col items-center justify-center bg-gray-800 bg-opacity-25 md:p-12">
+            <div x-show="show" x-transition
+                class="h-screen w-screen overflow-hidden bg-white shadow-md md:h-full md:max-w-2xl md:rounded-md"
                 @click.outside="show = false">
 
                 <div class="table h-full">
