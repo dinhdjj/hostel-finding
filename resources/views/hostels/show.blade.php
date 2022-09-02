@@ -1,9 +1,7 @@
 <x-guest-layout>
+    <x-header.search class="mb-4 border-b" />
+
     <div class="container mx-auto px-4">
-        <div>
-            Header
-            <hr>
-        </div>
         {{-- Title --}}
         <div class="flex-col items-center border-b-2 border-slate-500">
             <div>
