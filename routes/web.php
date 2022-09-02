@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Http\Controllers\HostelController;
 use App\Http\Controllers\HostelIndexController;
 use App\Http\Controllers\HostelSearchController;
 use App\Models\Hostel;
@@ -27,14 +28,26 @@ Route::get('hostels/search', HostelSearchController::class)
     ->name('hostels.search')
 ;
 
-// TODO: add a route for the hostel create page
-Route::get('hostels/create', fn () => 'route::hostels.create')
+Route::get('hostels/create', [HostelController::class, 'hosting'])
+    ->can('create', [Hostel::class])
     ->name('hostels.create')
+    ->middleware('auth')
 ;
 
-// TODO: add a route for the hostel detail page
-Route::get('hostels/{hostel}', fn (Hostel $hostel) => $hostel)
+Route::get('hostels/manage', [HostelController::class, 'manage'])
+    ->can('viewOwn', [Hostel::class])
+    ->name('hostels.manage')
+    ->middleware('auth')
+;
+
+Route::get('hostels/{hostel}', [HostelController::class, 'show'])
     ->name('hostels.show')
+;
+
+Route::get('hostels/{hostel}/edit', [HostelController::class, 'edit'])
+    ->can('update', ['hostel'])
+    ->name('hostels.edit')
+    ->middleware('auth')
 ;
 
 Route::middleware([

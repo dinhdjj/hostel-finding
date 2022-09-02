@@ -18,6 +18,11 @@
     </style>
 
     <!-- Scripts -->
+    <style>
+        [x-cloak] {
+            display: none !important;
+        }
+    </style>
     @vite(['resources/css/app.css', 'resources/css/places-autocomplete-dropdown.css', 'resources/js/app.js'])
 
     <!-- Styles -->

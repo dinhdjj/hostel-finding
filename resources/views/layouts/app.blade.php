@@ -7,7 +7,8 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'Laravel') }}</title>
-
+    <link rel="stylesheet" href="https://unpkg.com/easymde/dist/easymde.min.css">
+    <script src="https://unpkg.com/easymde/dist/easymde.min.js"></script>
     <!-- Fonts -->
     <link rel="stylesheet" href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap">
 
@@ -22,9 +23,11 @@
 
     <!-- Styles -->
     @livewireStyles
+
 </head>
 
 <body class="font-sans antialiased">
+
     <x-jet-banner />
 
     <div class="min-h-screen bg-gray-100">
@@ -46,8 +49,8 @@
     </div>
 
     @stack('modals')
-
     @livewireScripts
+    @livewire('notifications')
 </body>
 
 </html>

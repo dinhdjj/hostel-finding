@@ -20,14 +20,11 @@ class Comment extends Model
         'hostel_id',
     ];
 
-    protected $hidden = [
-    ];
+    protected $hidden = [];
 
-    protected $casts = [
-    ];
+    protected $casts = [];
 
-    protected $appends = [
-    ];
+    protected $appends = [];
 
     protected $with = [
         'children',
