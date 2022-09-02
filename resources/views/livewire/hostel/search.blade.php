@@ -150,12 +150,6 @@
                             `,
                         });
 
-                        marker.addListener('click', (e) => {
-                            const popup =
-                                e.target.parentElement.querySelector('[is-popup]');
-                            popup.classList.toggle('hidden');
-                        });
-
                         this.markers.push(marker);
                     })
                 },
