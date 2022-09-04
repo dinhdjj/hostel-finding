@@ -1,4 +1,10 @@
 <x-guest-layout>
+    <x-slot name="head">
+        <title>{{ $hostel->title }}</title>
+
+        <x-social-meta :title="$hostel->title" :description="$hostel->address" :image="$hostel->getFirstMediaUrl()" />
+    </x-slot>
+
     <x-header.search class="mb-4 border-b" />
 
     <div class="container mx-auto px-4">
