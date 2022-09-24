@@ -11,7 +11,7 @@
             class="flex flex-1 items-center justify-between gap-2 rounded-full px-4 py-2 shadow-md md:w-[30vw] md:min-w-[380px] md:flex-initial">
             <input x-ref="search" type="text" name="address" placeholder="Nhập địa điểm"
                 class="flex-1 border-transparent focus:border-transparent focus:ring-0" />
-            <button type="submit" class="rounded-full bg-primary-500 p-2">
+            <button type="submit" class="rounded-full bg-primary-500 p-2" id="header-search-button">
                 <x-heroicon-o-search class="h-5 w-5 text-white" />
             </button>
         </form>
