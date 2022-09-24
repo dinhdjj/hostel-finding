@@ -19,7 +19,7 @@ class CategoryFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->unique()->word(),
+            'name' => $this->faker->unique()->name(),
             'description' => $this->faker->optional()->sentence(),
             'created_at' => $this->faker->dateTimeBetween('-2 month', 'now'),
         ];
