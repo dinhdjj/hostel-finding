@@ -14,7 +14,7 @@ $url = route('hostels.show', [$hostel]);
 
     {{-- categories --}}
     <div class="flex flex-wrap gap-2">
-        @foreach ($hostel->categories as $category)
+        @foreach ($hostel->categories->take(3) as $category)
             <span class="rounded-xl bg-gray-100 px-2 py-0.5 text-xs font-medium text-gray-800">
                 {{ $category->name }}
             </span>
