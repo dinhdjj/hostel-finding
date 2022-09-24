@@ -38,6 +38,69 @@
                     {{-- filters --}}
                     <div class="table-row h-full">
                         <div class="h-full space-y-8 overflow-auto p-6">
+                            {{-- Order by --}}
+                            <div class="space-y-2">
+                                <h3 class="text-2xl font-semibold text-gray-800">Sắp xếp theo</h3>
+                                <div class="flex flex-wrap gap-3">
+                                    <button class="rounded-xl px-4 py-2 text-lg"
+                                        :class="{
+                                            'bg-gray-100 text-gray-600': !(order === 'newest'),
+                                            'bg-primary-500 text-white': order === 'newest',
+                                        }"
+                                        @click="order = 'newest'">
+                                        Mới nhất
+                                    </button>
+                                    <button class="rounded-xl px-4 py-2 text-lg"
+                                        :class="{
+                                            'bg-gray-100 text-gray-600': !(order === 'oldest'),
+                                            'bg-primary-500 text-white': order === 'oldest',
+                                        }"
+                                        @click="order = 'oldest'">
+                                        Cũ nhất
+                                    </button>
+                                    <button class="rounded-xl px-4 py-2 text-lg"
+                                        :class="{
+                                            'bg-gray-100 text-gray-600': !(order === 'price_asc'),
+                                            'bg-primary-500 text-white': order === 'price_asc',
+                                        }"
+                                        @click="order = 'price_asc'">
+                                        Giá thấp
+                                    </button>
+                                    <button class="rounded-xl px-4 py-2 text-lg"
+                                        :class="{
+                                            'bg-gray-100 text-gray-600': !(order === 'price_desc'),
+                                            'bg-primary-500 text-white': order === 'price_desc',
+                                        }"
+                                        @click="order = 'price_desc'">
+                                        Giá cao
+                                    </button>
+                                    <button class="rounded-xl px-4 py-2 text-lg"
+                                        :class="{
+                                            'bg-gray-100 text-gray-600': !(order === 'distance_asc'),
+                                            'bg-primary-500 text-white': order === 'distance_asc',
+                                        }"
+                                        @click="order = 'distance_asc'">
+                                        Gần nhất
+                                    </button>
+                                    <button class="rounded-xl px-4 py-2 text-lg"
+                                        :class="{
+                                            'bg-gray-100 text-gray-600': !(order === 'visits_desc'),
+                                            'bg-primary-500 text-white': order === 'visits_desc',
+                                        }"
+                                        @click="order = 'visits_desc'">
+                                        Lượt xem nhiều
+                                    </button>
+                                    <button class="rounded-xl px-4 py-2 text-lg"
+                                        :class="{
+                                            'bg-gray-100 text-gray-600': !(order === 'visits_asc'),
+                                            'bg-primary-500 text-white': order === 'visits_asc',
+                                        }"
+                                        @click="order = 'visits_asc'">
+                                        Lượt xem ít
+                                    </button>
+                                </div>
+                            </div>
+
                             {{-- price --}}
                             @include('livewire.hostel.partials.filter-price')
 
@@ -117,6 +180,7 @@
                 maxPrice: @json($max_price),
                 selectedCategoryIds: @json(array_map(fn($value) => (int) $value, $category_ids)),
                 selectedAmenityIds: @json(array_map(fn($value) => (int) $value, $amenity_ids)),
+                order: @json($order),
 
                 onClickCategory(cateId) {
                     if (this.selectedCategoryIds.includes(cateId)) {
@@ -145,7 +209,8 @@
                     @this.filter(
                         [this.minPrice, this.maxPrice],
                         this.selectedCategoryIds,
-                        this.selectedAmenityIds
+                        this.selectedAmenityIds,
+                        this.order,
                     );
 
                     this.show = false;

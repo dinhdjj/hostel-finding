@@ -24,6 +24,7 @@ class Search extends Component
     public ?int $min_price = null;
     public array $category_ids = [];
     public array $amenity_ids = [];
+    public string $order = 'newest';
     public array $hostelsData = [];
 
     public int $largestPrice = 0;
@@ -41,6 +42,7 @@ class Search extends Component
         'min_price' => ['except' => null],
         'category_ids' => ['except' => []],
         'amenity_ids' => ['except' => []],
+        'order' => ['except' => 'newest'],
     ];
 
     public function mount(): void
@@ -75,17 +77,21 @@ class Search extends Component
         $this->fitPoint($nearestHostel->latitude, $nearestHostel->longitude);
     }
 
-    public function filter(array $price, array $categoryIds, array $amenityIds): void
+    public function filter(array $price, array $categoryIds, array $amenityIds, string $order): void
     {
         $this->min_price = $price[0];
         $this->max_price = $price[1];
         $this->category_ids = $categoryIds;
         $this->amenity_ids = $amenityIds;
+        $this->order = $order;
     }
 
     public function render(): View
     {
-        $hostels = $this->getBaseHostelQuery()
+        $query = $this->getBaseHostelQuery();
+        $this->applyOrderToQuery($query);
+
+        $hostels = $query
             ->withCount('visitLogs')
             ->where('latitude', '>=', $this->south)
             ->where('latitude', '<=', $this->north)
@@ -133,5 +139,54 @@ class Search extends Component
             ->when($this->category_ids, fn ($query) => $query->whereHas('categories', fn ($query) => $query->whereIn('id', $this->category_ids)))
             ->when($this->amenity_ids, fn ($query) => $query->whereHas('amenities', fn ($query) => $query->whereIn('id', $this->amenity_ids)))
         ;
+    }
+
+    protected function applyOrderToQuery(Builder $query): void
+    {
+        switch ($this->order) {
+            case 'price_desc':
+                $query->orderBy('monthly_price', 'desc');
+
+                break;
+
+            case 'price_asc':
+                $query->orderBy('monthly_price', 'asc');
+
+                break;
+
+            case 'distance_asc':
+                $query
+                    ->selectRaw('*, ( 6371 * acos( cos( radians(?) ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians(?) ) + sin( radians(?) ) * sin( radians( latitude ) ) ) ) AS distance', [$this->north, $this->west, $this->south])
+                    ->orderBy('distance')
+                ;
+
+                break;
+
+            case 'visits_desc':
+                $query
+                    ->withCount('visitLogs')
+                    ->orderBy('visit_logs_count', 'desc')
+                ;
+
+                break;
+
+            case 'visits_asc':
+                $query
+                    ->withCount('visitLogs')
+                    ->orderBy('visit_logs_count', 'asc')
+                ;
+
+                break;
+
+            case 'newest':
+                $query->orderBy('created_at', 'desc');
+
+                break;
+
+            case 'oldest':
+                $query->orderBy('created_at', 'asc');
+
+                break;
+        }
     }
 }
