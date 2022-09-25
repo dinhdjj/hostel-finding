@@ -9,6 +9,7 @@ use App\Models\Category;
 use App\Models\Hostel;
 use Cache;
 use Http;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -21,7 +22,7 @@ class HostelIndexController extends Controller
     {
         $ip = $request->ip();
         $location = Cache::rememberForever("location-ip-{$ip}", fn () => Http::get("http://ip-api.com/json/{$ip}")->throw()->json());
-        $nearestHostels = collect();
+        $nearestHostels = new Collection();
 
         if ('fail' !== $location['status']) {
             $lat = $location['lat'];
