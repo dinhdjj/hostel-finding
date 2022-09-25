@@ -8,6 +8,7 @@ use Cache;
 use Dinhdjj\Visit\Traits\Visitor;
 use Filament\Models\Contracts\FilamentUser;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -88,6 +89,11 @@ class User extends Authenticatable implements FilamentUser
     public function hostelVotes(): HasManyThrough
     {
         return $this->hasManyThrough(Vote::class, Hostel::class, 'owner_id');
+    }
+
+    public function subscribedHostels(): BelongsToMany
+    {
+        return $this->belongsToMany(Hostel::class)->withTimestamps();
     }
 
     public function canAccessFilament(): bool

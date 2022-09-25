@@ -38,6 +38,11 @@ class HostelPolicy
         return $user->hasPermissionTo('hostels.update.any') || $user->id === $hostel->owner_id;
     }
 
+    public function subscribe(User $user, Hostel $hostel): Response|bool
+    {
+        return $hostel->subscribers()->where('user_id', $user->id)->doesntExist();
+    }
+
     public function deleteAny(User $user): Response|bool
     {
         return $user->hasPermissionTo('hostels.delete.any');

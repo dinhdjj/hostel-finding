@@ -82,6 +82,11 @@ class Hostel extends Model implements HasMedia
         return $this->hasMany(Vote::class);
     }
 
+    public function subscribers(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class)->withTimestamps();
+    }
+
     public function registerMediaCollections(): void
     {
         $this->addMediaCollection('default')

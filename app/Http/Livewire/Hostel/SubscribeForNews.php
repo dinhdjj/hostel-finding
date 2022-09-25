@@ -31,7 +31,9 @@ class SubscribeForNews extends Component
             return;
         }
 
-        // TODO: handle subscribe
+        if (Auth::user()->can('subscribe', [$this->hostel])) {
+            $this->hostel->subscribers()->attach(Auth::id());
+        }
 
         Notification::make()
             ->success()

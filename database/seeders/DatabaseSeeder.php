@@ -45,6 +45,8 @@ class DatabaseSeeder extends Seeder
                 $hostel->amenities()->attach($amenities->random(random_int(1, 3))->pluck('id')->toArray());
                 $hostel->categories()->attach($categories->random(random_int(1, 3))->pluck('id')->toArray());
 
+                $hostel->subscribers()->attach(User::factory()->create());
+
                 $hostel->visitLog(Arr::random([null, $users->random()]))->log();
 
                 $hostel->addMedia(UploadedFile::fake()->image('fake.jpg', 640, 480))->toMediaCollection();
