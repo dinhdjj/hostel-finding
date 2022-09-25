@@ -30,7 +30,7 @@ class HostelPolicy
 
     public function create(User $user): Response|bool
     {
-        return true;
+        return $user->hasPermissionTo('hostels.create.any');
     }
 
     public function update(User $user, Hostel $hostel): Response|bool
