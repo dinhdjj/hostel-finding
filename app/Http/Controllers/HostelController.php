@@ -12,7 +12,11 @@ class HostelController extends Controller
 {
     public function show(Hostel $hostel): View
     {
-        $hostel->loadAggregate('votes', 'score', 'avg')->loadCount('votes', 'comments');
+        $hostel
+            ->load('categories', 'amenities', 'comments.owner')
+            ->loadAggregate('votes', 'score', 'avg')
+            ->loadCount('votes', 'comments', 'visitLogs')
+        ;
         $builder = $hostel->visitLog(Auth::user()); // @phpstan-ignore-line
         $builder->byIp();
         $builder->byVisitor();

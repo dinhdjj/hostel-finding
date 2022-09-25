@@ -1,62 +1,143 @@
 <x-guest-layout>
-    <div class="container mx-auto px-32">
-        <x-slot name="head">
-            <title>{{ $hostel->title }}</title>
+    <x-slot name="head">
+        <title>{{ $hostel->title }}</title>
 
-            <x-social-meta :title="$hostel->title" :description="$hostel->address" :image="$hostel->getFirstMediaUrl()" />
-        </x-slot>
+        <x-social-meta :title="$hostel->title" :description="$hostel->address" :image="$hostel->getFirstMediaUrl()" />
+    </x-slot>
 
-        <x-header.search class="mb-4 border-b" />
+    <x-header.search class="mb-4 border-b" />
 
-        <div class="container mx-auto px-4">
-            {{-- Title --}}
-            <div class="flex-col items-center border-b-2 border-slate-500">
-                <div>
-                    <h1 class="text-9xl font-bold">{{ $hostel->title }}</h1>
-                </div>
-                <div class="flex items-center pb-5">
-                    <div class="flex items-center font-bold">
-                        {{ round($hostel->votes_avg_score * 5, 2) }}
-                        <x-heroicon-s-star class="inline-block h-4" />
-                        <x-bi-dot />
-                        {{ $hostel->votes_count }} đánh giá
-                        <x-bi-dot />
-                        {{ $hostel->visitLogs()->count() }} lượt xem
-                    </div>
+    <div class="container mx-auto max-w-5xl px-4">
+        {{-- Title --}}
+        <h1 class="text-3xl font-bold text-gray-700 md:text-4xl xl:text-6xl">{{ $hostel->title }}</h1>
 
-                    <div class="pl-9">
-                        <div class="text-sm leading-5 text-gray-500">
-                            {{ $hostel->address }}
+        {{-- Overview --}}
+        <div class="mt-1 flex flex-wrap items-center gap-2">
+            <div class="flex items-center gap-1 rounded-full bg-gray-100 px-3 py-1.5 font-semibold text-gray-500">
+                {{ round($hostel->votes_avg_score * 5, 2) }}
+                <x-heroicon-s-star class="inline-block h-4 text-yellow-500" />
+            </div>
+            <div class="flex items-center gap-1 rounded-full bg-gray-100 px-3 py-1.5 font-semibold text-gray-500">
+                {{ $hostel->votes_count }} đánh giá
+            </div>
+            <div class="flex items-center gap-1 rounded-full bg-gray-100 px-3 py-1.5 font-semibold text-gray-500">
+                {{ $hostel->visit_logs_count }} lượt xem
+            </div>
+        </div>
+
+        {{-- Address --}}
+        <div class="mt-2 flex items-center gap-1">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                stroke="currentColor" class="h-5 w-5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
+            </svg>
+            <a href="https://www.google.com/maps/place/ {{ $hostel->address }}"
+                class="text-sm font-thin text-gray-600 underline hover:text-primary-600" target="_blank">
+                {{ $hostel->address }}
+            </a>
+        </div>
+
+        {{-- media --}}
+        <x-hostel.image-section :hostel="$hostel" class="my-6" />
+        {{-- info --}}
+
+        <div class="grid grid-cols-3 gap-4">
+            <div class="col-span-3 space-y-2 lg:col-span-2">
+                {{-- categories --}}
+                <div class="flex flex-wrap items-center gap-2">
+                    @foreach ($hostel->categories as $category)
+                        <div class="rounded-xl bg-gray-100 px-4 py-2 text-lg text-gray-600">
+                            {{ $category->name }}
                         </div>
-                    </div>
+                    @endforeach
+                </div>
+
+                {{-- amenities --}}
+                <div class="flex flex-wrap items-center gap-2">
+                    @foreach ($hostel->amenities as $amenity)
+                        <div class="rounded-xl bg-gray-100 px-4 py-2 text-lg text-gray-600">
+                            {{ $amenity->name }}
+                        </div>
+                    @endforeach
+                </div>
+
+                {{-- Description --}}
+                <div class="px-2">
+                    <x-markdown class="prose !max-w-full lg:prose-xl">
+                        {!! $hostel->description !!}
+                    </x-markdown>
                 </div>
             </div>
-            {{-- media --}}
-            <x-hostel.image-section :hostel="$hostel" class="my-6" />
-            {{-- info --}}
-            <x-hostel.info-section :hostel="$hostel" class="my-6" />
 
-            {{-- comments --}}
-            <div class="border-t-2 border-b-2 border-slate-500 pb-20">
-                <livewire:comment :hostel="$hostel" />
+            {{-- infos & actions --}}
+            <div class="col-span-3 space-y-4 rounded-md px-4 py-4 shadow lg:col-span-1">
+                <livewire:hostel.subscribe-for-news :hostel="$hostel" />
+
+                <ul class="space-y-2">
+                    <li class="flex items-center gap-2 text-gray-700">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="h-6 w-6">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M2.25 18.75a60.07 60.07 0 0115.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 013 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 00-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 01-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 003 15h-.75M15 10.5a3 3 0 11-6 0 3 3 0 016 0zm3 0h.008v.008H18V10.5zm-12 0h.008v.008H6V10.5z" />
+                        </svg>
+                        <div>
+                            <span class="font-bold">{{ number_format($hostel->monthly_price) }}₫</span>
+                            <span class="text-sm">tháng</span>
+                        </div>
+                    </li>
+                    <li class="flex items-center gap-2 text-gray-700">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="h-6 w-6">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M6.429 9.75L2.25 12l4.179 2.25m0-4.5l5.571 3 5.571-3m-11.142 0L2.25 7.5 12 2.25l9.75 5.25-4.179 2.25m0 0L21.75 12l-4.179 2.25m0 0l4.179 2.25L12 21.75 2.25 16.5l4.179-2.25m11.142 0l-5.571 3-5.571-3" />
+                        </svg>
+
+                        <div>
+                            <span class="font-bold">{{ number_format($hostel->size, 1) }}</span>
+                            <span class="text-sm">m2</span>
+                        </div>
+                    </li>
+                    <li class="flex items-center gap-2 text-gray-700">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="h-6 w-6">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z" />
+                        </svg>
+                        <div>
+                            {{-- TODO: replace with actual value --}}
+                            <span class="font-bold">{{ 3 }}</span>
+                            <span class="text-sm">người ở</span>
+                        </div>
+                    </li>
+                </ul>
             </div>
+        </div>
 
-            {{-- map --}}
-            <div x-data="dropdown" class="my-10 px-20">
-                <div class="my-5 text-2xl font-bold">
-                    Nơi bạn sẽ đến
-                </div>
-                <div class="py-5 text-sm font-bold leading-5">
-                    <span>Địa chỉ:
-                        <a href="https://www.google.com/maps/place/ {{ $hostel->address }}" class="font-thin underline"
-                            target="_blank">
-                            {{ $hostel->address }}
-                        </a>
-                    </span>
-                </div>
-                <div x-ref="map" class="h-96 w-full"></div>
-
+        <div class="mt-4 space-y-2 rounded-md px-4 py-6 shadow">
+            <h2 id="notes-title" class="mb-4 text-lg font-medium text-gray-800">Bình luận</h2>
+            <div>
+                <livewire:hostel.comments :hostel="$hostel" />
             </div>
+        </div>
+
+        {{-- map --}}
+        <div x-data="dropdown" class="mt-8 space-y-2">
+            <h2 id="notes-title" class="text-lg font-medium text-gray-800">Nơi bạn sẽ đến</h2>
+            <div class="mt-2 flex items-center gap-1">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="h-5 w-5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
+                </svg>
+                <a href="https://www.google.com/maps/place/ {{ $hostel->address }}"
+                    class="text-sm font-thin text-gray-600 underline hover:text-primary-600" target="_blank">
+                    {{ $hostel->address }}
+                </a>
+            </div>
+            <div x-ref="map" class="h-96 w-full"></div>
         </div>
     </div>
 
