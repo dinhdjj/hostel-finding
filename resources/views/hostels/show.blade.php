@@ -140,6 +140,13 @@
             <div x-ref="map" class="h-96 w-full"></div>
         </div>
 
+        <div class="mt-8 space-y-2 rounded-md px-4 py-6 shadow">
+            <h2 id="notes-title" class="mb-4 text-lg font-medium text-gray-800">Đánh giá</h2>
+            <div>
+                <livewire:hostel.votes :hostel="$hostel" />
+            </div>
+        </div>
+
         {{-- Owner --}}
         <div class="mt-8 rounded-md bg-white p-6 shadow">
             <div class="mb-4 flex justify-between">
@@ -157,7 +164,7 @@
                                 <x-heroicon-s-star class="inline-block h-4 text-yellow-500" />
                             </div>
                             <div class="rounded bg-blue-50 py-1 px-2 text-xs text-blue-500">
-                                {{ round($hostel->owner->describe()['hostel_votes_count'], 1) }}
+                                {{ round($hostel->owner->describe()['hostel_votes_count'] * 5, 1) }}
                                 đánh giá
                             </div>
                         </div>

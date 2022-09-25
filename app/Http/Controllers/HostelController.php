@@ -13,7 +13,7 @@ class HostelController extends Controller
     public function show(Hostel $hostel): View
     {
         $hostel
-            ->load('categories', 'amenities', 'comments.owner')
+            ->load('categories', 'amenities', 'comments.owner', 'votes.owner')
             ->loadAggregate('votes', 'score', 'avg')
             ->loadCount('votes', 'comments', 'visitLogs')
         ;
