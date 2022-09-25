@@ -19,6 +19,8 @@ return new class() extends Migration
             $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(Hostel::class)->constrained()->cascadeOnDelete();
             $table->timestamps();
+
+            $table->primary(['user_id', 'hostel_id']);
         });
     }
 

@@ -7,6 +7,7 @@ namespace App\Http\Livewire\Hostel;
 use App\Models\Hostel;
 use Auth;
 use Filament\Notifications\Notification;
+use Illuminate\View\View;
 use Livewire\Component;
 
 class SubscribeForNews extends Component
@@ -43,7 +44,7 @@ class SubscribeForNews extends Component
         ;
     }
 
-    public function render()
+    public function render(): View
     {
         return view('livewire.hostel.subscribe-for-news');
     }

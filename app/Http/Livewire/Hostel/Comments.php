@@ -8,6 +8,7 @@ use App\Models\Comment;
 use App\Models\Hostel;
 use Filament\Notifications\Notification;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\View\View;
 use Livewire\Component;
 
 class Comments extends Component
@@ -17,7 +18,7 @@ class Comments extends Component
     public Hostel $hostel;
     public string $content = '';
 
-    protected $rules = [
+    protected array $rules = [
         'content' => ['required', 'min:3'],
     ];
 
@@ -46,7 +47,7 @@ class Comments extends Component
         $this->hostel->load('comments.owner');
     }
 
-    public function render()
+    public function render(): View
     {
         return view('livewire.hostel.comments', [
             'comments' => $this->hostel->comments,

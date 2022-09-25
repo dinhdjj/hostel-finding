@@ -40,7 +40,7 @@ class HostelPolicy
 
     public function subscribe(User $user, Hostel $hostel): Response|bool
     {
-        return $hostel->subscribers()->where('user_id', $user->id)->doesntExist();
+        return $hostel->subscribers()->wherePivot('user_id', $user->id)->doesntExist();
     }
 
     public function deleteAny(User $user): Response|bool

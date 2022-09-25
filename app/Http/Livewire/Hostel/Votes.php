@@ -5,9 +5,11 @@ declare(strict_types=1);
 namespace App\Http\Livewire\Hostel;
 
 use App\Models\Hostel;
+use App\Models\Vote;
 use Auth;
 use Filament\Notifications\Notification;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\View\View;
 use Livewire\Component;
 
 class Votes extends Component
@@ -48,7 +50,7 @@ class Votes extends Component
         $this->hostel->load('votes.owner');
     }
 
-    public function render()
+    public function render(): View
     {
         return view('livewire.hostel.votes', [
             'votes' => $this->hostel->votes,
