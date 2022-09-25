@@ -6,6 +6,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\HostelResource\Pages;
 use App\Filament\Resources\HostelResource\RelationManagers\CommentsRelationManager;
+use App\Filament\Resources\HostelResource\RelationManagers\SubscribersRelationManager;
 use App\Filament\Resources\HostelResource\RelationManagers\VotesRelationManager;
 use App\Filament\Traits\Localizable;
 use App\Models\Hostel;
@@ -156,6 +157,7 @@ class HostelResource extends Resource
     public static function getRelations(): array
     {
         return [
+            SubscribersRelationManager::class,
             CommentsRelationManager::class,
             VotesRelationManager::class,
         ];

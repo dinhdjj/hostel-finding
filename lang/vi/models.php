@@ -80,6 +80,11 @@ return [
     'hostel.default' => 'các ảnh',
     'hostel.votes_score' => 'đánh giá',
 
+    'subscriber' => 'Người đăng ký',
+    'subscribers' => 'Người đăng ký',
+    'subscribers.name' => 'Tên',
+    'subscribers.phone_number' => 'Số điện thoại',
+
     'comment' => 'bình luận',
     'comments' => 'những bình luận',
     'comment.id' => 'ID',
