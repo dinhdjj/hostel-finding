@@ -139,6 +139,60 @@
             </div>
             <div x-ref="map" class="h-96 w-full"></div>
         </div>
+
+        {{-- Owner --}}
+        <div class="mt-8 rounded-md bg-white p-6 shadow">
+            <div class="mb-4 flex justify-between">
+                <div class="flex items-center">
+                    <img class="mr-4 h-20 w-20 rounded-full border border-indigo-50 p-1"
+                        src="{{ $hostel->owner->profile_photo_url }}" alt="avatar">
+                    <div>
+                        <div class="mb-2 flex gap-2">
+                            <h3 class="font-medium">{{ $hostel->owner->name }}</h3>
+                            <div class="rounded bg-blue-50 py-1 px-2 text-xs text-blue-500">
+                                {{ $hostel->owner->describe()['hostels_count'] }} nhà
+                            </div>
+                            <div class="flex items-center gap-1 rounded bg-blue-50 py-1 px-2 text-xs text-blue-500">
+                                {{ round($hostel->owner->describe()['hostel_votes_score_avg'], 1) }}
+                                <x-heroicon-s-star class="inline-block h-4 text-yellow-500" />
+                            </div>
+                            <div class="rounded bg-blue-50 py-1 px-2 text-xs text-blue-500">
+                                {{ round($hostel->owner->describe()['hostel_votes_count'], 1) }}
+                                đánh giá
+                            </div>
+                        </div>
+                        <p class="text-sm text-gray-500">
+                            <span>Chủ nhà</span>
+                            <span>-</span>
+                            <span>Tham gia {{ $hostel->owner->created_at->diffForHumans() }}</span>
+                        </p>
+                    </div>
+                </div>
+                <button class="mt-6 self-start focus:outline-none">
+                    <svg class="h-3 w-3 text-gray-200" viewBox="0 0 12 4" fill="none"
+                        xmlns="http://www.w3.org/2000/svg" data-config-id="auto-svg-1-4">
+                        <path
+                            d="M6 0.666687C5.26667 0.666687 4.66667 1.26669 4.66667 2.00002C4.66667 2.73335 5.26667 3.33335 6 3.33335C6.73333 3.33335 7.33333 2.73335 7.33333 2.00002C7.33333 1.26669 6.73333 0.666687 6 0.666687ZM1.33333 0.666687C0.6 0.666687 0 1.26669 0 2.00002C0 2.73335 0.6 3.33335 1.33333 3.33335C2.06667 3.33335 2.66667 2.73335 2.66667 2.00002C2.66667 1.26669 2.06667 0.666687 1.33333 0.666687ZM10.6667 0.666687C9.93333 0.666687 9.33333 1.26669 9.33333 2.00002C9.33333 2.73335 9.93333 3.33335 10.6667 3.33335C11.4 3.33335 12 2.73335 12 2.00002C12 1.26669 11.4 0.666687 10.6667 0.666687Z"
+                            fill="currentColor"></path>
+                    </svg>
+                </button>
+            </div>
+
+            <div class="-mx-2 flex flex-wrap">
+                <div class="mb-2 w-full px-2 md:mb-0">
+                    <button
+                        class="flex w-full items-center justify-center gap-2 rounded bg-indigo-500 py-2 text-sm text-white transition duration-200 hover:bg-indigo-600"
+                        onclick="navigator.clipboard.writeText('{{ $hostel->owner->phone_number }}');">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                            stroke-width="1.5" stroke="currentColor" class="h-6 w-6">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
+                        </svg>
+                        <span data-config-id="primary-action1">{{ $hostel->owner->phone_number }}</span>
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
 
     <x-footer.simple class="mt-12" />

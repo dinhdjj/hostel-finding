@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Cache;
 use Dinhdjj\Visit\Traits\Visitor;
 use Filament\Models\Contracts\FilamentUser;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -92,5 +93,18 @@ class User extends Authenticatable implements FilamentUser
     public function canAccessFilament(): bool
     {
         return $this->hasPermissionTo('view.admin-page');
+    }
+
+    public function describe(): array
+    {
+        return Cache::remember('user-'.$this->getKey().'-describe', 60 * 60 * 24, function () {
+            $hostelVotesCount = $this->hostelVotes()->count() ?? 0;
+
+            return [
+                'hostels_count' => $this->hostels()->count() ?? 0,
+                'hostel_votes_count' => $hostelVotesCount,
+                'hostel_votes_score_avg' => $this->hostelVotes()->avg('score') ?? 0,
+            ];
+        });
     }
 }
