@@ -79,6 +79,7 @@ return [
     'hostel.amenities' => 'các tiện nghi',
     'hostel.default' => 'các ảnh',
     'hostel.votes_score' => 'đánh giá',
+    'hostel.allowable_number_of_people' => 'số người ở tối đa',
 
     'subscriber' => 'Người đăng ký',
     'subscribers' => 'Người đăng ký',

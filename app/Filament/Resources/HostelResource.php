@@ -79,6 +79,10 @@ class HostelResource extends Resource
                     ->numeric()
                     ->required()
                     ->localizeLabel(),
+                TextInput::make('allowable_number_of_people')
+                    ->numeric()
+                    ->required()
+                    ->localizeLabel(),
                 MultiSelect::make('amenities')
                     ->relationship('amenities', 'name')
                     ->searchable(['name'])
