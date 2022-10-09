@@ -28,7 +28,7 @@ class HostelFactory extends Factory
             'latitude' => $this->faker->latitude(9.6, 11.5), // around Ho Chi Minh City
             'size' => $this->faker->numberBetween(20, 200),
             'monthly_price' => 100000 * $this->faker->numberBetween(100, 1000),
-            'number_of_rooms' => $this->faker->numberBetween(1, 10),
+            'allowable_number_of_people' => $this->faker->numberBetween(1, 10),
             'owner_id' => User::factory(),
             'created_at' => $this->faker->dateTimeBetween('-2 month', 'now'),
         ];

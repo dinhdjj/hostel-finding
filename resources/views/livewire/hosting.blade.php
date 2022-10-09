@@ -72,8 +72,8 @@
                     </label>
                     <div class="mt-1 sm:col-span-2 sm:mt-0">
                         <div class="flex max-w-lg rounded-md shadow-sm">
-                            <input required type="number" wire:model.defer='number_of_rooms' name="number_of_rooms"
-                                min="1"
+                            <input required type="number" wire:model.defer='allowable_number_of_people'
+                                name="allowable_number_of_people" min="1"
                                 class="block w-full min-w-0 flex-1 rounded-none rounded-r-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
                         </div>
                     </div>

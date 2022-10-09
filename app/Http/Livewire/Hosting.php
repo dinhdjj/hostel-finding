@@ -27,7 +27,7 @@ class Hosting extends Component implements HasForms
     public int $size = 0;
     public int $price = 0;
     public string $address = '';
-    public int $number_of_rooms = 0;
+    public int $allowable_number_of_people = 0;
     public float $latitude = 0;
     public float $longitude = 0;
     public array $categoriesList = [];
@@ -39,7 +39,7 @@ class Hosting extends Component implements HasForms
         'description' => ['string'],
         'size' => ['required', 'integer', 'min:1'],
         'price' => ['required', 'integer', 'min:1'],
-        'number_of_rooms' => ['required', 'integer', 'min:1'],
+        'allowable_number_of_people' => ['required', 'integer', 'min:1'],
     ];
 
     public function setLatLng(array $latLng): void
@@ -58,7 +58,7 @@ class Hosting extends Component implements HasForms
             'size' => $this->size,
             'monthly_price' => $this->price,
             'address' => $this->address,
-            'number_of_rooms' => $this->number_of_rooms,
+            'allowable_number_of_people' => $this->allowable_number_of_people,
             'latitude' => $this->latitude,
             'longitude' => $this->longitude,
             'owner_id' => auth()->id(),
@@ -75,7 +75,7 @@ class Hosting extends Component implements HasForms
         $this->description = '';
         $this->size = 0;
         $this->price = 0;
-        $this->number_of_rooms = 0;
+        $this->allowable_number_of_people = 0;
         $this->categoriesList = [];
         $this->amenitiesList = [];
 

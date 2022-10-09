@@ -28,7 +28,7 @@ class Edit extends Component implements HasForms
     public string $description = '';
     public int $size = 0;
     public int $monthly_price = 0;
-    public int $number_of_rooms = 0;
+    public int $allowable_number_of_people = 0;
     public string $address = '';
     public Collection $categoriesList;
     public Collection $amenitiesList;
@@ -44,7 +44,7 @@ class Edit extends Component implements HasForms
         $this->description = $hostel->description;
         $this->size = $hostel->size;
         $this->monthly_price = $hostel->monthly_price;
-        $this->number_of_rooms = $hostel->number_of_rooms;
+        $this->allowable_number_of_people = $hostel->allowable_number_of_people;
         $this->address = $hostel->address;
         $this->latitude = $hostel->latitude;
         $this->longitude = $hostel->longitude;
@@ -75,7 +75,7 @@ class Edit extends Component implements HasForms
             'description' => $data['description'],
             'size' => $data['size'],
             'monthly_price' => $data['monthly_price'],
-            'number_of_rooms' => $data['number_of_rooms'],
+            'allowable_number_of_people' => $data['allowable_number_of_people'],
             'address' => $data['address'],
             'latitude' => $this->latitude,
             'longitude' => $this->longitude,
@@ -131,7 +131,7 @@ class Edit extends Component implements HasForms
                 ->label('Giá mỗi tháng')
                 ->numeric()
                 ->required(),
-            TextInput::make('number_of_rooms')
+            TextInput::make('allowable_number_of_people')
                 ->label('Số người ở')
                 ->numeric()
                 ->required(),

@@ -100,7 +100,7 @@
                         </svg>
                         <div>
                             {{-- TODO: replace with actual value --}}
-                            <span class="font-bold">{{ $hostel->number_of_rooms }}</span>
+                            <span class="font-bold">{{ $hostel->allowable_number_of_people }}</span>
                             <span class="text-sm">người ở</span>
                         </div>
                     </li>

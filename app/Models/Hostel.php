@@ -31,7 +31,7 @@ class Hostel extends Model implements HasMedia
         'longitude',
         'size',
         'monthly_price',
-        'number_of_rooms',
+        'allowable_number_of_people',
         'owner_id',
     ];
 

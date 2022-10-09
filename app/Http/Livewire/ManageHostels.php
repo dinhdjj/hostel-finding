@@ -66,9 +66,9 @@ class ManageHostels extends Component implements HasTable
                 ->getStateUsing(fn (Hostel $record) => number_format($record->monthly_price, 0, '.', ',').' ₫')
                 ->searchable()
                 ->sortable(),
-            TextColumn::make('number_of_rooms')
+            TextColumn::make('allowable_number_of_people')
                 ->label('Số người ở')
-                ->getStateUsing(fn (Hostel $record) => $record->number_of_rooms.' người')
+                ->getStateUsing(fn (Hostel $record) => $record->allowable_number_of_people.' người')
                 ->searchable()
                 ->sortable(),
             TextColumn::make('updated_at')

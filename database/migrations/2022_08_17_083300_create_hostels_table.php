@@ -25,7 +25,7 @@ return new class() extends Migration
             $table->float('longitude', 11, 8);
             $table->integer('size'); // square meters
             $table->unsignedBigInteger('monthly_price');
-            $table->integer('number_of_rooms');
+            $table->integer('allowable_number_of_people');
             $table->timestamps();
 
             $table->foreignIdFor(User::class, 'owner_id')->constrained('users');
