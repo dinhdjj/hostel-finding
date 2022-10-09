@@ -62,6 +62,7 @@ class Hosting extends Component implements HasForms
             'latitude' => $this->latitude,
             'longitude' => $this->longitude,
             'owner_id' => auth()->id(),
+            'found_at' => now()->addMonth(),
         ]);
         $this->categoriesList = array_filter($this->categoriesList);
         $this->amenitiesList = array_filter($this->amenitiesList);
