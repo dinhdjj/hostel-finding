@@ -103,13 +103,28 @@ class User extends Authenticatable implements FilamentUser
 
     public function describe(): array
     {
-        return Cache::remember('user-'.$this->getKey().'-describe', 60 * 60 * 24, function () {
+        return Cache::remember('user-'.$this->getKey().'-describe', 0, function () {
+            $votes = $this->hostelVotes()->get();
+
+            $stars = [
+                1 => 0,
+                2 => 0,
+                3 => 0,
+                4 => 0,
+                5 => 0,
+            ];
+
+            $votes->groupBy(fn ($vote) => ceil($vote->score * 5))->each(function ($group, $key) use (&$stars): void {
+                $stars[$key] = $group->count();
+            });
+
             $hostelVotesCount = $this->hostelVotes()->count();
 
             return [
                 'hostels_count' => $this->hostels()->count(),
                 'hostel_votes_count' => $hostelVotesCount,
                 'hostel_votes_score_avg' => $this->hostelVotes()->avg('score') ?? 0,
+                'stars' => $stars,
             ];
         });
     }
