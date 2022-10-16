@@ -19,9 +19,28 @@ class CategoryFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->unique()->name(),
+            'name' => $this->faker->unique()->randomElement($this->getCategoryNames()),
             'description' => $this->faker->optional()->sentence(),
             'created_at' => $this->faker->dateTimeBetween('-2 month', 'now'),
+        ];
+    }
+
+    public function getCategoryNames(): array
+    {
+        return [
+            'Tìm người ở ghép',
+            'Nhà trọ OU',
+            'Nhà trọ TDT',
+            'Nhà trọ ĐHSP',
+            'Nhà trọ ĐHĐN',
+            'Nhà trọ sinh viên',
+            'Chung cư mini',
+            'Chung cư nguyên căn',
+            'Nhà riêng',
+            'Biệt thự',
+            'Căn hộ',
+            'Khách sạn',
+            'Nhà nghỉ',
         ];
     }
 }

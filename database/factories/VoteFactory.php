@@ -21,7 +21,7 @@ class VoteFactory extends Factory
     public function definition()
     {
         return [
-            'score' => $this->faker->numberBetween(1, 5) * 0.1,
+            'score' => $this->faker->numberBetween(1, 5) * 0.2,
             'description' => $this->faker->optional()->sentence(),
             'owner_id' => User::factory(),
             'hostel_id' => Hostel::factory(),
