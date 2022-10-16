@@ -27,7 +27,9 @@ class DatabaseSeeder extends Seeder
     {
         $this->setUpFaker();
 
-        $users = User::factory(10)->create();
+        $users = User::factory(10)->create()->tap(function ($users): void {
+            $users->each->assignRole('hosteller');
+        });
         $amenities = Amenity::factory(10)->create();
         $categories = Category::factory(10)->create();
 
