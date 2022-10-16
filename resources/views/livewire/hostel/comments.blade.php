@@ -29,10 +29,10 @@
                                                     @csrf
                                                     <input type="text" name="reply" id="reply"
                                                         wire:model.defer="reply"
-                                                        class="block w-full rounded-full border-gray-300 px-4 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                                        class="mr-2 block w-full rounded-md border-gray-300 px-4 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                                                         placeholder="Hãy phản hồi gì đó">
                                                     <button type="submit"
-                                                        class="focus:shadow-outline-indigo active:shadow-outline-indigo flex-shrink-0 rounded-full border-indigo-500 bg-indigo-500 px-4 py-2 text-sm font-medium leading-5 text-white hover:border-indigo-400 hover:bg-indigo-400 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 active:border-indigo-700 active:bg-indigo-600">
+                                                        class="focus:shadow-outline-indigo active:shadow-outline-indigo flex-shrink-0 rounded-md border-indigo-500 bg-indigo-500 px-4 py-2 text-sm font-medium leading-5 text-white hover:border-indigo-400 hover:bg-indigo-400 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 active:border-indigo-700 active:bg-indigo-600">
                                                         Gửi phản hồi </button>
                                                 </form>
                                             </div>
@@ -62,8 +62,10 @@
                                             </div>
                                             <div>
                                                 <div class="text-sm">
-                                                    <a href="#" class="font-medium text-gray-900">Phản hồi từ
-                                                        {{ $child->owner->name }}</a>
+                                                    <span class="font-light text-gray-500">Phản hồi từ</span>
+                                                    <a href="#" class="font-medium text-gray-800">
+                                                        {{ $child->owner->name }}
+                                                    </a>
                                                 </div>
                                                 <div class="mt-1 text-sm text-gray-700">
                                                     <p>{{ $child->content }}</p>

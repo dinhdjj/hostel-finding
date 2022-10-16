@@ -8,7 +8,7 @@ $url = route('hostels.show', [$hostel]);
     {{ $attributes->class('block hover:-translate-y-1 transition duration-200 ease-out group flex flex-col gap-y-2') }}>
 
     {{-- image --}}
-    <div class="aspect-[15/14]">
+    <div class="aspect-[15/14] overflow-hidden">
         {{ $hostel->getFirstMedia()->img()->attributes(['class' => 'h-full w-full rounded-xl object-cover']) }}
     </div>
 
