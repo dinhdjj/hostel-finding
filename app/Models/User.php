@@ -114,7 +114,7 @@ class User extends Authenticatable implements FilamentUser
                 5 => 0,
             ];
 
-            $votes->groupBy(fn ($vote) => ceil($vote->score * 5))->each(function ($group, $key) use (&$stars): void {
+            $votes->groupBy(fn ($vote) => (int) ceil($vote->score * 5))->each(function ($group, $key) use (&$stars): void {
                 $stars[$key] = $group->count();
             });
 
