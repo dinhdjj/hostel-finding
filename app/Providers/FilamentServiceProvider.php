@@ -29,6 +29,14 @@ class FilamentServiceProvider extends ServiceProvider
             Filament::registerTheme(
                 app(Vite::class)('resources/css/filament.css'),
             );
+
+            Filament::registerStyles([
+                app(Vite::class)('resources/css/places-autocomplete-dropdown.css'),
+            ]);
+
+            Filament::registerScripts([
+                app(Vite::class)('resources/js/filament-admin.js'),
+            ], shouldBeLoadedBeforeCoreScripts: true);
         });
 
         ViewComponent::macro('localizeLabel', function () {

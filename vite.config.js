@@ -3,6 +3,7 @@ import laravel, { refreshPaths } from 'laravel-vite-plugin';export default defin
     plugins: [
         laravel({
             input: [
+                'resources/js/filament-admin.js',
                 'resources/css/app.css',
                 'resources/js/app.js',
                 'resources/css/filament.css',
