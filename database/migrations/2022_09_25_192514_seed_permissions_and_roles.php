@@ -39,6 +39,7 @@ return new class() extends Migration
         ]);
 
         Role::create(['name' => 'hosteller'])->givePermissionTo([
+            'view.admin-page',
             'hostels.create.any',
         ]);
     }
