@@ -33,6 +33,7 @@ class Hostel extends Model implements HasMedia
         'monthly_price',
         'allowable_number_of_people',
         'owner_id',
+        'coordinates',
     ];
 
     protected $hidden = [];
@@ -41,7 +42,9 @@ class Hostel extends Model implements HasMedia
         'found_at' => 'datetime',
     ];
 
-    protected $appends = [];
+    protected $appends = [
+        'coordinates',
+    ];
 
     public function getSlugOptions(): SlugOptions
     {
@@ -92,6 +95,22 @@ class Hostel extends Model implements HasMedia
             ->acceptsMimeTypes(['image/jpg', 'image/jpeg', 'image/png', 'image/bmp', 'image/gif', 'image/svg+xml', 'image/webp'])
             ->withResponsiveImages()
         ;
+    }
+
+    public function getCoordinatesAttribute(): array
+    {
+        return [
+            'latitude' => $this->latitude,
+            'longitude' => $this->longitude,
+        ];
+    }
+
+    public function setCoordinatesAttribute(array $coordinates): void
+    {
+        $this->fill([
+            'latitude' => $coordinates['latitude'],
+            'longitude' => $coordinates['longitude'],
+        ]);
     }
 
     protected static function booted(): void

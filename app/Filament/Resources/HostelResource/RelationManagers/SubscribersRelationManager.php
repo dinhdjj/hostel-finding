@@ -5,9 +5,11 @@ declare(strict_types=1);
 namespace App\Filament\Resources\HostelResource\RelationManagers;
 
 use App\Filament\Traits\Localizable;
+use App\Models\User;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Resources\Table;
 use Filament\Tables;
+use Filament\Tables\Actions\Action;
 use Illuminate\Database\Eloquent\Model;
 
 class SubscribersRelationManager extends RelationManager
@@ -26,14 +28,21 @@ class SubscribersRelationManager extends RelationManager
                     ->localizeLabel(),
                 Tables\Columns\TextColumn::make('phone_number')
                     ->localizeLabel(),
+                Tables\Columns\BooleanColumn::make('active')
+                    ->label('Đã đọc'),
             ])
-            ->filters([
-            ])
+            ->filters([])
             ->headerActions([
                 Tables\Actions\CreateAction::make(),
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Action::make('active')
+                    ->label(__('Đánh dấu đã đọc'))
+                    ->visible(fn (User $record) => ! $record->pivot->active)
+                    ->action(fn (User $record) => $record->pivot->update(['active' => true]))
+                    ->requiresConfirmation()
+                    ->icon('heroicon-o-check-circle')
+                    ->color('success'),
                 Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([

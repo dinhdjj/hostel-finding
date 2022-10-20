@@ -73,6 +73,7 @@ return [
     'hostel.address' => 'địa chỉ',
     'hostel.latitude' => 'vĩ độ',
     'hostel.longitude' => 'kinh độ',
+    'hostel.coordinates' => 'tọa độ',
     'hostel.size' => 'kích cỡ',
     'hostel.monthly_price' => 'giá hàng tháng',
     'hostel.categories' => 'các danh mục',
@@ -80,6 +81,7 @@ return [
     'hostel.default' => 'các ảnh',
     'hostel.votes_score' => 'đánh giá',
     'hostel.allowable_number_of_people' => 'số người ở tối đa',
+    'hostel.owner_id' => 'người sở hữu',
 
     'subscriber' => 'Người đăng ký',
     'subscribers' => 'Người đăng ký',

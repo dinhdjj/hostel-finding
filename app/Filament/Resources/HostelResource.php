@@ -9,7 +9,9 @@ use App\Filament\Resources\HostelResource\RelationManagers\CommentsRelationManag
 use App\Filament\Resources\HostelResource\RelationManagers\SubscribersRelationManager;
 use App\Filament\Resources\HostelResource\RelationManagers\VotesRelationManager;
 use App\Filament\Traits\Localizable;
+use App\Forms\Components\GoogleMapSelector;
 use App\Models\Hostel;
+use Closure;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\MarkdownEditor;
 use Filament\Forms\Components\MultiSelect;
@@ -19,6 +21,7 @@ use Filament\Forms\Components\TextInput;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
+use Filament\Tables\Actions\Action;
 use Filament\Tables\Actions\DeleteBulkAction;
 use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Actions\ViewAction;
@@ -53,23 +56,26 @@ class HostelResource extends Resource
                     ->required()
                     ->localizeLabel(),
                 TextInput::make('title')
+                    ->reactive()
                     ->required()
                     ->maxLength(255)
                     ->localizeLabel(),
                 DateTimePicker::make('found_at')
                     ->required()
+                    ->hint('Đến thời gian này phòng trọ tự động được đánh dấu là đã tìm thấy người thuê')
+                    ->localizeLabel(),
+                GoogleMapSelector::make('coordinates')
+                    ->required()
+                    ->reactive()
+                    ->afterStateUpdated(fn (array $state, Closure $set) => $set('address', $state['address']))
+                    ->columnSpan([
+                        'default' => 1,
+                        'lg' => 2,
+                    ])
                     ->localizeLabel(),
                 TextInput::make('address')
                     ->required()
                     ->maxLength(255)
-                    ->localizeLabel(),
-                TextInput::make('latitude')
-                    ->numeric()
-                    ->required()
-                    ->localizeLabel(),
-                TextInput::make('longitude')
-                    ->numeric()
-                    ->required()
                     ->localizeLabel(),
                 TextInput::make('size')
                     ->numeric()
@@ -85,19 +91,29 @@ class HostelResource extends Resource
                     ->localizeLabel(),
                 MultiSelect::make('amenities')
                     ->relationship('amenities', 'name')
+                    ->preload()
                     ->searchable(['name'])
                     ->localizeLabel(),
                 MultiSelect::make('categories')
                     ->relationship('categories', 'name')
+                    ->preload()
                     ->searchable(['name'])
                     ->localizeLabel(),
                 MarkdownEditor::make('description')
+                    ->columnSpan([
+                        'default' => 1,
+                        'lg' => 2,
+                    ])
                     ->localizeLabel(),
                 SpatieMediaLibraryFileUpload::make('default')
                     ->label('Images')
                     ->multiple()
                     ->enableReordering()
                     ->minFiles(5)
+                    ->columnSpan([
+                        'default' => 1,
+                        'lg' => 2,
+                    ])
                     ->localizeLabel(),
             ])
         ;
@@ -122,7 +138,7 @@ class HostelResource extends Resource
                     ->localizeLabel(),
                 TextColumn::make('votes_score')
                     ->avg('votes', 'score')
-                    ->getStateUsing(fn (Hostel $record) => $record->votes_score * 5 .' ✯')
+                    ->getStateUsing(fn (Hostel $record) => ceil($record->votes_score * 5).' ✯')
                     ->localizeLabel(),
                 TextColumn::make('size')
                     ->getStateUsing(fn (Model $record) => $record->size.' m²')
@@ -148,6 +164,13 @@ class HostelResource extends Resource
                     ),
             ])
             ->actions([
+                Action::make('activate')
+                    ->label(__('Tìm thấy'))
+                    ->visible(fn (Hostel $record) => ! $record->found_at->lt(now()))
+                    ->action(fn (Hostel $record) => $record->update(['found_at' => now()]))
+                    ->requiresConfirmation()
+                    ->icon('heroicon-o-check-circle')
+                    ->color('success'),
                 ViewAction::make(),
                 EditAction::make(),
             ])
