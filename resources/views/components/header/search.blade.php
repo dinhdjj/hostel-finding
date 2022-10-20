@@ -122,35 +122,29 @@
                         role="menuitem"
                         tabindex="-1"
                         id="user-menu-item-0"
-                    >Hồ sơ</a>
-                    <a
-                        href="{{ route('hostels.create') }}"
-                        class="block px-4 py-2 text-sm text-gray-700"
-                        role="menuitem"
-                        tabindex="-1"
-                        id="user-menu-item-0"
-                    >Đăng tin</a>
-                    <a
-                        href="{{ route('dashboard') }}"
-                        class="block px-4 py-2 text-sm text-gray-700"
-                        role="menuitem"
-                        tabindex="-1"
-                        id="user-menu-item-0"
-                    >Bảng điều khiển</a>
-                    <a
-                        href="{{ route('hostels.manage') }}"
-                        class="block px-4 py-2 text-sm text-gray-700"
-                        role="menuitem"
-                        tabindex="-1"
-                        id="user-menu-item-0"
-                    >Quản lý nhà trọ</a>
-                    <a
-                        href="{{ route('hostels.notify') }}"
-                        class="block px-4 py-2 text-sm text-gray-700"
-                        role="menuitem"
-                        tabindex="-1"
-                        id="user-menu-item-0"
-                    >Thông báo</a>
+                    >
+                        Hồ sơ
+                    </a>
+                    @can('create', App\Models\Hostel::class)
+                        <a
+                            href="{{ App\Filament\Resources\MyHostelResource::getUrl('create') }}"
+                            class="block px-4 py-2 text-sm text-gray-700"
+                            role="menuitem"
+                            tabindex="-1"
+                            id="user-menu-item-0"
+                        >
+                            Đăng nhà trọ
+                        </a>
+                        <a
+                            href="{{ App\Filament\Resources\MyHostelResource::getUrl('index') }}"
+                            class="block px-4 py-2 text-sm text-gray-700"
+                            role="menuitem"
+                            tabindex="-1"
+                            id="user-menu-item-0"
+                        >
+                            Quản lý nhà trọ
+                        </a>
+                    @endcan
                     <form
                         x-data
                         method="POST"
@@ -167,26 +161,23 @@
                     </form>
                 @else
                     <a
-                        href="{{ route('hostels.create') }}"
-                        class="block px-4 py-2 text-sm text-gray-700"
-                        role="menuitem"
-                        tabindex="-1"
-                        id="user-menu-item-0"
-                    >Đăng tin</a>
-                    <a
                         href="{{ route('register') }}"
                         class="block px-4 py-2 text-sm text-gray-700"
                         role="menuitem"
                         tabindex="-1"
                         id="user-menu-item-1"
-                    >Đăng ký</a>
+                    >
+                        Đăng ký
+                    </a>
                     <a
                         href="{{ route('login') }}"
                         class="block px-4 py-2 text-sm text-gray-700"
                         role="menuitem"
                         tabindex="-1"
                         id="user-menu-item-2"
-                    >Đăng nhập</a>
+                    >
+                        Đăng nhập
+                    </a>
                 @endauth
             </div>
         </div>
