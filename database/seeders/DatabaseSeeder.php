@@ -14,7 +14,6 @@ use App\Models\Vote;
 use Arr;
 use Illuminate\Database\Seeder;
 use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Http\UploadedFile;
 
 class DatabaseSeeder extends Seeder
 {
@@ -53,37 +52,33 @@ class DatabaseSeeder extends Seeder
 
                 $hostel->addMedia($this->getRandomHostelImagePath())
                     ->preservingOriginal()
-                    ->setFileName('fake')
+                    ->setFileName('fake.webp')
                     ->toMediaCollection()
                 ;
 
                 $hostel->addMedia($this->getRandomHostelImagePath())
                     ->preservingOriginal()
-                    ->setFileName('fake')
+                    ->setFileName('fake.webp')
                     ->toMediaCollection()
                 ;
 
                 $hostel->addMedia($this->getRandomHostelImagePath())
                     ->preservingOriginal()
-                    ->setFileName('fake')
+                    ->setFileName('fake.webp')
                     ->toMediaCollection()
                 ;
 
                 $hostel->addMedia($this->getRandomHostelImagePath())
                     ->preservingOriginal()
-                    ->setFileName('fake')
+                    ->setFileName('fake.webp')
                     ->toMediaCollection()
                 ;
 
                 $hostel->addMedia($this->getRandomHostelImagePath())
                     ->preservingOriginal()
-                    ->setFileName('fake')
+                    ->setFileName('fake.webp')
                     ->toMediaCollection()
                 ;
-
-                if (random_int(0, 1)) {
-                    $hostel->addMedia(UploadedFile::fake()->image('fake2.jpg', 640, 480))->toMediaCollection();
-                }
             }
         }
     }
